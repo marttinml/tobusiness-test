@@ -36,7 +36,7 @@ Snap.plugin(function (Snap, Element, Paper) {
 });
 
 (function () {
-    var Directive = function () {
+    var Directive = function ($vash) {
         var Link = function (scope, element, attrs, ngModel) {
     
             // scope.$factory = function (obj,index,last) {
@@ -188,6 +188,13 @@ Snap.plugin(function (Snap, Element, Paper) {
                     });
                     return rect;
                 },
+                rectApplication : function(rect){
+                    rect.attr({
+                        fill: "rgba(21,11,44,.65)",
+                        strokeWidth: 0
+                    });
+                    return rect;
+                },
                 lineApplication : function(line){
                     line.attr({
                         stroke: "rgb(200,200,200)",
@@ -207,6 +214,19 @@ Snap.plugin(function (Snap, Element, Paper) {
                         fill:"rgb(255,255,255)"
                     });
                     return text;
+                }
+            };
+
+
+            scope.buildLayoutInitial = function(){
+                var offset = { x:0, y:0 };
+                var width = 200;
+                scope.config.layouts.initial = [];
+                scope.layoutHorizontalGroup = scope.svg.group();
+                for(i in scope.source){
+                    scope.config.layouts.initial[i] = {};
+                    scope.config.layouts.initial[i].offset = offset; 
+                    offset.x += width;
                 }
             };
 
@@ -242,7 +262,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     var rect,line,text;
                     rect = scope.$factory.rect(offset, width, height);
                     rect = scope.$paint.rectApplication(rect);
-                    line = scope.$factory.line({x:offset.x , y : offset.y + (height - 1)  }, { x : scope.width, y : offset.y+ (height-1)});
+                    line = scope.$factory.line({x:offset.x + width, y : offset.y }, { x : offset.x + width, y : 3000});
                     line = scope.$paint.lineApplication(line);
                     text = scope.$factory.text({x:offset.x + (width/2) , y : offset.y + (height/2) + 5 }, (width-40), scope.config.layouts.vertical[i].text);
                     text = scope.$paint.textAreas(text);
@@ -250,7 +270,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     var g = scope.svg.group(rect, line, text);
                     scope.layoutVerticalGroup.append(g);
 
-                    scope.config.layouts.horizontal[i].offset = offset; 
+                    scope.config.layouts.vertical[i].offset = offset; 
                     offset.x += width;
                 }
             };
@@ -266,12 +286,40 @@ Snap.plugin(function (Snap, Element, Paper) {
                     default: break;
                 }
             };
+            scope.buildCapacidad = function(offset, capacidad){
+                rect = scope.$factory.rect(offset, width, height);
+                rect = scope.$paint.rectApplication(rect);
+                // line = scope.$factory.line({x:offset.x , y : offset.y + (height - 1)  }, { x : scope.width, y : offset.y+ (height-1)});
+                // line = scope.$paint.lineApplication(line);
+                // text = scope.$factory.text({x:offset.x + (width/2) , y : offset.y + (height/2) + 5 }, (width-40), scope.config.layouts.vertical[i].text);
+                // text = scope.$paint.textAreas(text);
+            };
+            scope.buildCapacidades = function(){
+                var offset = { x : 100 , y : 100 };
+
+                for(i in scope.source){
+
+                    for(j in scope.source[i].capacidades){
+                        var capacidad = scope.source[i].capacidades[j];
+                        // var offset = scope.$factory.getPosition(array, capacidad);
+                        var offset1 = $vash.findOffsetInArray(scope.config.layouts.vertical, capacidad,'areas');
+                        //var offset2 = $vash.findOffsetInArray(scope.config.layouts.horizontal, capacidad,'aplicaciones');
+                        //var offset2 = $vash.findOffsetInArray(scope.config.layouts.horizontal,capacidad);
+                        //console.log('$vash');
+                        // console.log(scope.config.layouts.vertical);
+                        // console.log(capacidad);
+                        //console.log(offset1);
+                        //console.log(offset2);
+                    }
+                }
+            };
             scope.buildLayouts = function(){
+                scope.buildLayoutInitial();
                 scope.buildLayoutHorizontal();
                 scope.buildLayoutVertical();
             };
             scope.buildProcesos = function(){
-
+                scope.buildCapacidades();
             };
 
             scope.init = function(){ 
@@ -282,12 +330,14 @@ Snap.plugin(function (Snap, Element, Paper) {
                 scope.buildProcesos();
             };
 
+            
+            scope.init();
+
             scope.$watch('source',function(newValue, oldValue){
                 if(scope.source.length){
                     scope.reset();
                 }
             });
-            scope.init();
             
         };
         return {

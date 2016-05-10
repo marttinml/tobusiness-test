@@ -112,7 +112,13 @@
                           "areas":{
                               "name": "SALES REQUEST",
                               "selected": false
-                            }
+                            },
+                            "offsets":[{x:0,y:0},{x:0,y:0},{x:0,y:0}],
+                            "intersection":[
+                                                [{x:0,y:0},{x:0,y:0},{x:0,y:0}],
+                                                [{x:0,y:0},{x:0,y:0},{x:0,y:0}],
+                                                [{x:0,y:0},{x:0,y:0},{x:0,y:0}]
+                                            ],
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -135,6 +141,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -197,6 +207,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -272,6 +286,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -309,6 +327,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -345,6 +367,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -380,6 +406,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -411,6 +441,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         }
                       ]
@@ -434,6 +468,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -456,6 +494,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -483,6 +525,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -510,6 +556,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -532,6 +582,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         }
                       ]
@@ -555,6 +609,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -579,6 +637,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         }
                       ]
@@ -602,6 +664,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -619,6 +685,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -636,6 +706,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -657,6 +731,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -664,6 +742,10 @@
                           "selected": false,
                           "kpis": [],
                           "aplicaciones": [],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -713,6 +795,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -740,6 +826,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -757,6 +847,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -774,6 +868,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         }
                       ]
@@ -797,6 +895,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -814,6 +916,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": [
                             {
                               "id": "1",
@@ -854,6 +960,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -871,6 +981,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         }
                       ]
@@ -889,6 +1003,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -906,6 +1024,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -923,6 +1045,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         }
                       ]
@@ -957,7 +1083,11 @@
                               "name": "Coxistence (MRD)",
                               "selected": false
                             }
-                          ]
+                          ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                         },
                         {
                           "name": "Customer Identification",
