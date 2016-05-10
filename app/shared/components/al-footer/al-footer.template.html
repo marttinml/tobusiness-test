@@ -1,0 +1,9 @@
+<ul>
+	<li ng-repeat="item in options" ng-class="{active:item.active}">
+		<a ng-href="{{item.url}}">
+			<i class="count" ng-if="item.count">{{item.count}}</i>
+			<i class="block fa fa-2x" ng-class="[item.icoClass]"></i>
+			<span>{{item.title}}</span>
+		</a>
+	</li>
+</ul>

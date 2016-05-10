@@ -1,0 +1,11 @@
+<i class="ico" ng-class="{back:back}" ng-click="onBack()"></i>
+<span><b>{{options.title}}</b></span>
+<ul>
+	<li ng-repeat="item in options.footer" ng-class="{active:item.active}">
+		<a ng-href="{{item.url}}">
+			<i class="count" ng-if="item.count">{{item.count}}</i>
+			<i ng-class="[{ active:item.active }, item.icoClass]"></i>
+			<span class="ng-hide">{{item.title}}</span>
+		</a>
+	</li>
+</ul>

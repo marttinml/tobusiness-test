@@ -1,0 +1,20 @@
+al-carriers{
+    display: block;
+    margin-top: 20px;
+}
+al-carriers > ul{
+    text-align: center;
+}
+al-carriers > ul > li{
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin: 5px 10px 5px 10px;
+    background-color: rgb(240,240,240);
+    border-radius: 50%;
+    line-height: 4.4;
+    cursor: pointer;
+}
+al-carriers > ul > li.active{
+    background-color: rgb(36,211,154);
+}

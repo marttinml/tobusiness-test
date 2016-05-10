@@ -1,0 +1,5 @@
+<ul ng-style="{width:(options.length*65)+'px'}">
+	<li ng-repeat="item in options track by $index" ng-class="{active:item.active}" ng-click="onSelect($index)">
+		{{item.monto}}
+	</li>
+</ul>

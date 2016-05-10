@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>toBusiness</title>
+
+	<meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+
+    <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:100,300' rel='stylesheet' type='text/css'> -->
+
+    <!-- Style -->
+    <link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <!-- Directives Style -->
+	<link rel="stylesheet" href="app/shared/components/al-header/al-header.style.css">
+	<link rel="stylesheet" href="app/shared/components/al-footer/al-footer.style.css">
+	<link rel="stylesheet" href="app/shared/components/al-menu/al-menu.style.css">
+	<link rel="stylesheet" href="app/shared/components/al-carriers/al-carriers.style.css">
+	<link rel="stylesheet" href="app/shared/components/al-montos/al-montos.style.css">
+
+	<!-- Modules Style -->
+	<link rel="stylesheet" href="app/modules/home/assets/home.style.css">
+	<link rel="stylesheet" href="app/modules/help/assets/help.style.css">
+	<link rel="stylesheet" href="app/modules/inbox/assets/inbox.style.css">
+	<link rel="stylesheet" href="app/modules/profile/assets/profile.style.css">
+	<link rel="stylesheet" href="app/modules/tiempoaire/assets/tiempoaire.style.css">
+
+</head>
+<body ng-controller="AppController">
+
+	<!-- Render view -->
+	<div ng-view></div>
+	
+	<!-- references -->
+	<script src="assets/js/snap.svg-min.js"></script>
+	<!-- References angular.js -->
+	<script src="assets/js/angular.min.js"></script>
+	<script src="assets/js/angular-locale_es-mx.js"></script>
+	<script src="assets/js/angular-route.min.js"></script>
+	<script src="assets/js/angular-touch.min.js"></script>
+
+
+	<!-- app config -->
+	<script src="app/config/app.module.js"></script>
+	<script src="app/config/app.router.js"></script>
+	<script src="app/config/app.controller.js"></script>
+	<script src="app/config/app.service.js"></script>
+
+
+	<!-- Directives -->
+	<script src="app/shared/components/al-header/al-header.directive.js"></script>
+	<script src="app/shared/components/al-footer/al-footer.directive.js"></script>
+	<script src="app/shared/components/al-menu/al-menu.directive.js"></script>
+	<script src="app/shared/components/al-carriers/al-carriers.directive.js"></script>
+	<script src="app/shared/components/al-montos/al-montos.directive.js"></script>
+	<script src="app/shared/components/ng-diagramflow/ng-diagramflow.directive.js"></script>
+	<script src="app/shared/components/ng-ways/ng-ways.directive.js"></script>
+
+	<!-- Modules  -->
+	<script src="app/modules/home/home.module.js"></script>
+	<script src="app/modules/help/help.module.js"></script>
+	<script src="app/modules/inbox/inbox.module.js"></script>
+	<script src="app/modules/profile/profile.module.js"></script>
+	<script src="app/modules/tiempoaire/tiempoaire.module.js"></script>
+
+	<!-- Controllers -->
+	<script src="app/modules/home/controllers/home.controller.js"></script>
+	<script src="app/modules/help/controllers/help.controller.js"></script>
+	<script src="app/modules/inbox/controllers/inbox.controller.js"></script>
+	<script src="app/modules/profile/controllers/profile.controller.js"></script>
+	<script src="app/modules/tiempoaire/controllers/tiempoaire.controller.js"></script>
+
+	<!-- Services -->
+	<script src="app/modules/tiempoaire/services/tiempoaire.service.js"></script>
+	
+</body>
+</html>

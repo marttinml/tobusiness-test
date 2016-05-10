@@ -1,0 +1,63 @@
+al-menu{
+	width: auto;
+    height: auto;
+}
+
+al-menu > i.ico-menu{
+    width: 22px;
+    height: 22px;
+    display: block;
+    right: 20px;
+    top: 10px;
+    position: absolute;
+    z-index: 11;
+    color: rgb(255,255,255);
+}
+
+al-header > i.ico.back{
+    background-image: url(../../../../../assets/img/10_FLECHA_back.svg);
+}
+
+/* one item */
+al-header > ul > li:nth-last-child(1) {
+    width: 100%;
+}
+
+/* two items */
+al-header > ul > li:nth-last-child(2),
+al-header > ul > li:nth-last-child(1) {
+    width: 50%;
+}
+
+/* three items */
+al-header > ul > li:nth-last-child(3),
+al-header > ul > li:nth-last-child(2),
+al-header > ul > li:nth-last-child(1) {
+    width: 33.3333%;
+}
+
+/* four items */
+al-header > ul > li:nth-last-child(4),
+al-header > ul > li:nth-last-child(3),
+al-header > ul > li:nth-last-child(2),
+al-header > ul > li:nth-last-child(1) {
+    width: 25%;
+}
+
+/* five items */
+al-header > ul > li:nth-last-child(5),
+al-header > ul > li:nth-last-child(4),
+al-header > ul > li:nth-last-child(3),
+al-header > ul > li:nth-last-child(2),
+al-header > ul > li:nth-last-child(1) {
+    width: 20%;
+}
+
+
+
+
+@media (max-width: 699px) {
+    al-header > ul{
+        display:none;
+    }
+}

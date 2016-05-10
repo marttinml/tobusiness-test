@@ -1,0 +1,130 @@
+al-footer{
+	width: 100%;
+    height: 50px;
+    position: fixed;
+    background-size: 101% 90px;
+    display: block;
+    bottom: 0;
+    transition: all ease .3s;
+    left: 0;
+    background-color: rgba(250,250,250,.95);
+    z-index: 10;
+    border-top: 1px solid rgba(0,0,0,.1);
+    text-align: center;
+    font-size: 11px;
+
+}
+al-footer > ul{
+    
+}
+al-footer > ul > li{
+    display: inline-block;
+    position: relative;
+}
+
+al-footer > ul > li i{
+    width: 22px;
+    height: 22px;
+    display: block;
+    margin: 10px auto 0px auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+al-footer > ul > li i.count{
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+    padding: 2px 6px;
+    margin: 3px auto auto 2px;
+    background-color: rgb(250,93,74);
+    color: rgb(255,255,255);
+    font-style: normal;
+    font-size: 12px;
+}
+
+al-footer > ul > li.active > a{
+    color:rgb(36,211,154);
+}
+
+
+
+
+
+/* one item */
+al-footer > ul > li:nth-last-child(1) {
+    width: 100%;
+}
+
+/* two items */
+al-footer > ul > li:nth-last-child(2),
+al-footer > ul > li:nth-last-child(1) {
+    width: 50%;
+}
+
+/* three items */
+al-footer > ul > li:nth-last-child(3),
+al-footer > ul > li:nth-last-child(2),
+al-footer > ul > li:nth-last-child(1) {
+    width: 33.3333%;
+}
+
+/* four items */
+al-footer > ul > li:nth-last-child(4),
+al-footer > ul > li:nth-last-child(3),
+al-footer > ul > li:nth-last-child(2),
+al-footer > ul > li:nth-last-child(1) {
+    width: 25%;
+}
+
+/* five items */
+al-footer > ul > li:nth-last-child(5),
+al-footer > ul > li:nth-last-child(4),
+al-footer > ul > li:nth-last-child(3),
+al-footer > ul > li:nth-last-child(2),
+al-footer > ul > li:nth-last-child(1) {
+    width: 20%;
+}
+
+al-footer > ul > li i.home{
+    background-image: url(img/ico-home-line-gray.svg);
+}
+al-footer > ul > li i.phone{
+    background-image: url(img/ico-phone-line-gray.svg);
+}
+al-footer > ul > li i.message{
+    background-image: url(img/ico-message-line-gray.svg);
+}
+al-footer > ul > li i.profile{
+    background-image: url(img/ico-profile-line-gray.svg);
+}
+al-footer > ul > li i.help{
+    background-image: url(img/ico-help-line-gray.svg);
+}
+
+
+al-footer > ul > li i.active.home{
+    background-image: url(img/ico-home-bold-green.svg);
+}
+al-footer > ul > li i.active.phone{
+    background-image: url(img/ico-phone-bold-green.svg);
+}
+al-footer > ul > li i.active.message{
+    background-image: url(img/ico-message-bold-green.svg);
+}
+al-footer > ul > li i.active.profile{
+    background-image: url(img/ico-profile-bold-green.svg);
+}
+al-footer > ul > li i.active.help{
+    background-image: url(img/ico-help-bold-green.svg);
+}
+
+
+@media (min-width: 700px) {
+    al-footer{
+        display:none;
+    }
+}
+

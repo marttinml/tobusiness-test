@@ -1,0 +1,81 @@
+body, input, button,textarea{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+	line-height: 1.2;
+	color: rgb(100,100,100);
+	
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	padding-top: 50px;
+}
+b{
+	font-weight: 300;
+}
+ul{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: rgb(100,100,100);
+	-webkit-touch-callout: none;
+}
+
+
+a, input, button {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    outline: none;
+}
+
+
+.disable-select {
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+}
+
+.block{
+	display: block!important;
+}
+.green{
+	    color: rgb(36,211,154)!important;
+}
+.red{
+	    color: rgb(255,0,0)!important;
+}
+
+/*main{
+	min-height: calc(100% - 200);
+}*/
+.footer-bottons-2{
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.footer-bottons-2.main-footer{
+	bottom: 51px;
+}
+.footer-bottons-2 > button{
+	width: 50%;
+	height: 40px;
+	border: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	float: left;
+	color: rgb(255,255,255);
+}
+
+.footer-bottons-2 > button.active{
+	background-color: rgb(36,211,154);
+}
+.footer-bottons-2 > button.passive{
+	background-color: rgb(220,220,220);
+}
+
