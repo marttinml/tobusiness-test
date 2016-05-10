@@ -1,6 +1,4 @@
 /*global angular*/
 (function () {
-
-    angular.module('Help', []);
-
+    angular.module('Help', ['mVash']);
 })();
