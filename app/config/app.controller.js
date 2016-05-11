@@ -372,7 +372,7 @@
                             }
                           ],
                           "areas":{
-                              "name": "SALES REQUEST",
+                              "name": "CREDIT",
                               "selected": false
                             },
                           "subcapacidades": []
@@ -388,7 +388,7 @@
                             }
                           ],
                           "areas":{
-                              "name": "SALES REQUEST",
+                              "name": "CREDIT",
                               "selected": false
                             },
                           "subcapacidades": []
