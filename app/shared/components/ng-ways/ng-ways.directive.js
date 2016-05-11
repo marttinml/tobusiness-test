@@ -177,6 +177,17 @@ Snap.plugin(function (Snap, Element, Paper) {
                         "text-anchor": "middle"
                     });
                     return text;
+                },
+                textbox : function (offset, w, h, text) {
+                    var text = scope.svg.multitext(offset.x, offset.y, text, w, {
+                        "text-anchor": "middle",
+                        'font-size': '10px'
+                    });
+                    console.log(text.node.clientHeight);
+                    console.log(text);
+                    var yt = (offset.y +(h / 2) - (text.node.clientHeight / 2))+10;
+                    text.attr({ y: yt});
+                    return text;
                 }
             };
 
@@ -188,10 +199,11 @@ Snap.plugin(function (Snap, Element, Paper) {
                     });
                     return rect;
                 },
-                rectApplication : function(rect){
+                rectCapacidades : function(rect){
                     rect.attr({
-                        fill: "rgba(21,11,44,.65)",
-                        strokeWidth: 0
+                        fill: "rgba(255,255,255)",
+                        stroke: "rgb(150,150,150)",
+                        strokeWidth: 0.5
                     });
                     return rect;
                 },
@@ -217,6 +229,14 @@ Snap.plugin(function (Snap, Element, Paper) {
                 }
             };
 
+            scope.settingProcesos = function(procesos){
+                for(i in procesos){
+                    for(j in procesos[i].capacidades){
+                        var capacidad = procesos[i].capacidades[j];
+                        capacidad.offsets = [{x:0,y:0},{x:0,y:0},{x:0,y:0}];
+                    }
+                }
+            };
 
             scope.buildLayoutInitial = function(){
                 var offset = { x:0, y:0 };
@@ -246,7 +266,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     
                     var g = scope.svg.group(rect, line, text);
                     scope.layoutHorizontalGroup.append(g);
-                    scope.config.layouts.horizontal[i].offset = offset; 
+                    scope.config.layouts.horizontal[i].offset = JSON.parse(JSON.stringify(offset)); ; 
                     offset.y += height;
                 }
 
@@ -296,7 +316,9 @@ Snap.plugin(function (Snap, Element, Paper) {
             };
             scope.buildCapacidades = function(){
                 
-                var offsets = [{x:0,y:0},{x:0,y:0},{x:0,y:0}];
+                var offsets = [{x:0,y:0},{x:0,y:50},{x:0,y:0}];
+
+                //console.log(scope.config.layouts.horizontal);
 
                 for(i in scope.source){
                     
@@ -305,30 +327,34 @@ Snap.plugin(function (Snap, Element, Paper) {
                         var capacidad = scope.source[i].capacidades[j];
                         // var offset = scope.$factory.getPosition(array, capacidad);
 
-                        capacidad.offsets = [{},{},{}];
                         capacidad.offsets[0].x = scope.config.layouts.initial[i].offset.x;
                         capacidad.offsets[0].y = offsets[0].y;
                         offsets[0].y += 100;
 
                         capacidad.offsets[1].x = $vash.findOffsetInArray(scope.config.layouts.vertical, capacidad,'areas').x;
                         capacidad.offsets[1].y = offsets[1].y;
-                        offsets[1].y += 100;
+                        offsets[1].y += 120;
 
 
                         capacidad.offsets[2].y = $vash.findOffsetInArray(scope.config.layouts.horizontal, capacidad,'aplicaciones').y;
                         capacidad.offsets[2].x = offsets[2].x;
                         offsets[2].x += 300;
 
+                        var offsetRect = {x : (capacidad.offsets[1].x + 50), y: capacidad.offsets[1].y}
+                        var rect = scope.$factory.rect(offsetRect, 250, 100);
+                        rect = scope.$paint.rectCapacidades(rect);
 
-                        //var offset2 = $vash.findOffsetInArray(scope.config.layouts.horizontal,capacidad);
-                        //console.log('$vash');
-                         console.log(capacidad);
-                        // console.log(capacidad);
-                        //console.log(offset1);
-                        //console.log(offset2);
+                        if((Number(j)+1) < scope.source[i].capacidades.length){
+                            //console.log(scope.source[i].capacidades[(Number(j)+1)]);
+                            capacidad = $vash.intersectionFill(capacidad, scope.source[i].capacidades[(Number(j)+1)]);
+                            
+                        }
+
+                        console.log(capacidad.intersection);
                     }
 
                     offsets[0].y = 0;
+                    offsets[1].y += 100;
                 }
             };
             scope.buildLayouts = function(){
@@ -344,7 +370,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                 scope.buildLayouts();
                 scope.config.changeLayoutSelect(scope.config.layoutSelect);
             };
-            scope.reset = function(){ 
+            scope.reset = function(){
+                scope.settingProcesos(scope.source);
                 scope.buildProcesos();
             };
 
