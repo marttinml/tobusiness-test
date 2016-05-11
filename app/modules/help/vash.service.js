@@ -83,9 +83,9 @@
             if (x0 == x1) {
                 
                 if (y0 >= y1) {
-                    direction = 'down';
-                } else {
                     direction = 'up';
+                } else {
+                    direction = 'down';
                 }
                 
                 
@@ -97,7 +97,7 @@
                 } else {
                     intersectionArray[1] = {
                         x: x0,
-                        y: y1 / 2
+                        y: ((y1 -y0) / 2) +  y0
                     };
                 }
             } 
@@ -111,7 +111,7 @@
                 
                 if (y0 == y1) {
                     intersectionArray[1] = {
-                        x: x1 / 2,
+                        x: ((x1 - x0) / 2) + x0,
                         y: y0
                     };
                 } else {

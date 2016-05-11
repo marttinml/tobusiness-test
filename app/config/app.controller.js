@@ -753,7 +753,12 @@
                           "name": "Payments",
                           "selected": false,
                           "kpis": [],
-                          "aplicaciones": [],
+                          "aplicaciones": [
+                            {
+                              "name": "Invoice Gateway",
+                              "selected": false
+                            }
+                          ],
                           "areas":{
                               "name": "SALES REQUEST",
                               "selected": false
