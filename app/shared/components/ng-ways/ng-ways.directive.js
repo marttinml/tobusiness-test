@@ -180,15 +180,28 @@ Snap.plugin(function (Snap, Element, Paper) {
                     });
                     return text;
                 },
-                textbox : function (offset, w, h, text) {
+                textbox : function (offset, w, h, text, fontSize) {
                     var text = scope.svg.multitext(offset.x, offset.y, text, w, {
                         "text-anchor": "middle",
-                        'font-size': '10px'
+                        'font-size': fontSize+'px'
                     });
-                    var yt = (offset.y +(h / 2) - (text.node.clientHeight / 2))+10;
+                    // var yt = offset.y - (text.node.clientHeight / 2);
+                    // //var yt = (offset.y +(h / 2) - (text.node.clientHeight / 2))+10;
+                    var yt = offset.y + (fontSize / 3);
                     text.attr({ y: yt});
                     return text;
-                }
+                },
+                polyline : function (arr) {
+                        console.log(arr);
+                        var polyline = scope.svg.polyline(arr);
+                        polyline.attr({
+                            fill: "rgb(100,100,100)",
+                            stroke: "rgb(100,100,100)",
+                            strokeWidth: 1
+                        });
+                        // factotyArrow();
+                        return polyline;
+                    }
             };
 
             scope.$paint = {
@@ -207,6 +220,13 @@ Snap.plugin(function (Snap, Element, Paper) {
                     });
                     return rect;
                 },
+                rectCapacidadesFooter : function(rect){
+                    rect.attr({
+                        fill: "rgba(21,11,44,.65)",
+                        strokeWidth: 0
+                    });
+                    return rect;
+                },
                 lineApplication : function(line){
                     line.attr({
                         stroke: "rgb(200,200,200)",
@@ -222,6 +242,12 @@ Snap.plugin(function (Snap, Element, Paper) {
                     return text;
                 },
                 textAreas : function(text){
+                    text.attr({
+                        fill:"rgb(255,255,255)"
+                    });
+                    return text;
+                },
+                fontColorWhite : function(text){
                     text.attr({
                         fill:"rgb(255,255,255)"
                     });
@@ -299,9 +325,9 @@ Snap.plugin(function (Snap, Element, Paper) {
                     var rect,line,text;
                     rect = scope.$factory.rect(offset, width, height);
                     rect = scope.$paint.rectApplication(rect);
-                    line = scope.$factory.line({x:offset.x + (width/2), y : offset.y-(height/2) }, { x : offset.x + (width/2), y : 3000});
+                    line = scope.$factory.line({x:offset.x + (width/2), y : offset.y - (height/2) }, { x : offset.x + (width/2), y : 3000});
                     line = scope.$paint.lineApplication(line);
-                    text = scope.$factory.text(offset, (width-40), scope.config.layouts.vertical[i].text);
+                    text = scope.$factory.textbox(offset, width-40,height, scope.config.layouts.vertical[i].text,16);
                     text = scope.$paint.textAreas(text);
                     
                     var g = scope.svg.group(rect, line, text);
@@ -338,7 +364,7 @@ Snap.plugin(function (Snap, Element, Paper) {
             scope.buildCapacidades = function(){
                 
                 // var offsets = [{x:0,y:0},{x:0,y:50},{x:0,y:0}];
-                var capacidadWidth = 250;
+                var capacidadWidth = 200;
                 var capacidadHeight = 100;
 
                 //console.log(scope.config.layouts.horizontal);
@@ -351,11 +377,24 @@ Snap.plugin(function (Snap, Element, Paper) {
 
                         var rect = scope.$factory.rect(capacidad.offsets[1], capacidadWidth, capacidadHeight);
                         rect = scope.$paint.rectCapacidades(rect);
-                        var textbox = scope.$factory.textbox(capacidad.offsets[1], capacidadWidth,capacidadHeight,capacidad.name);
+                        var textbox = scope.$factory.textbox(capacidad.offsets[1], capacidadWidth,capacidadHeight,capacidad.name,14);
+
+                        var rectFooterOffset    = {x:capacidad.offsets[1].x, y : capacidad.offsets[1].y + ((capacidadHeight/2)-10)};
+                        var rectFooter          = scope.$factory.rect(rectFooterOffset, capacidadWidth, 20);
+                        scope.$paint.rectCapacidadesFooter(rectFooter);
+                        var textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,capacidadHeight,capacidad.aplicaciones[0].name,12);
+                        scope.$paint.fontColorWhite(textboxFooter);
+                        
+
 
                         if((Number(j)+1) < scope.source[i].capacidades.length){
                             capacidad = $vash.intersectionFill(capacidad, scope.source[i].capacidades[(Number(j)+1)]);
+                            var xys = capacidad.intersection;
+                            var arr = [xys[0].x,xys[0].y,xys[1].x,xys[1].y,xys[2].x,xys[2].y,xys[1].x,xys[1].y];
+                            var intersection = scope.$factory.polyline(arr);
+                            console.log(capacidad);
                         }
+
                     }
                 }
             };
