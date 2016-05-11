@@ -105,7 +105,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Welcome Center Opus",
+                              "name": "Welcome Center",
                               "selected": false
                             }
                           ],
@@ -315,6 +315,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {
@@ -383,6 +387,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         }
                       ]
@@ -625,6 +633,10 @@
                               "selected": false
                             }
                           ],
+                          "areas":{
+                              "name": "SALES REQUEST",
+                              "selected": false
+                            },
                           "subcapacidades": []
                         },
                         {

@@ -270,7 +270,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     var g = scope.svg.group(rect, line, text);
                     scope.layoutVerticalGroup.append(g);
 
-                    scope.config.layouts.vertical[i].offset = offset; 
+                    scope.config.layouts.vertical[i].offset = JSON.parse(JSON.stringify(offset)); 
                     offset.x += width;
                 }
             };
@@ -295,22 +295,40 @@ Snap.plugin(function (Snap, Element, Paper) {
                 // text = scope.$paint.textAreas(text);
             };
             scope.buildCapacidades = function(){
-                var offset = { x : 100 , y : 100 };
+                
+                var offsets = [{x:0,y:0},{x:0,y:0},{x:0,y:0}];
 
                 for(i in scope.source){
+                    
 
                     for(j in scope.source[i].capacidades){
                         var capacidad = scope.source[i].capacidades[j];
                         // var offset = scope.$factory.getPosition(array, capacidad);
-                        var offset1 = $vash.findOffsetInArray(scope.config.layouts.vertical, capacidad,'areas');
-                        //var offset2 = $vash.findOffsetInArray(scope.config.layouts.horizontal, capacidad,'aplicaciones');
+
+                        capacidad.offsets = [{},{},{}];
+                        capacidad.offsets[0].x = scope.config.layouts.initial[i].offset.x;
+                        capacidad.offsets[0].y = offsets[0].y;
+                        offsets[0].y += 100;
+
+                        capacidad.offsets[1].x = $vash.findOffsetInArray(scope.config.layouts.vertical, capacidad,'areas').x;
+                        capacidad.offsets[1].y = offsets[1].y;
+                        offsets[1].y += 100;
+
+
+                        capacidad.offsets[2].y = $vash.findOffsetInArray(scope.config.layouts.horizontal, capacidad,'aplicaciones').y;
+                        capacidad.offsets[2].x = offsets[2].x;
+                        offsets[2].x += 300;
+
+
                         //var offset2 = $vash.findOffsetInArray(scope.config.layouts.horizontal,capacidad);
                         //console.log('$vash');
-                        // console.log(scope.config.layouts.vertical);
+                         console.log(capacidad);
                         // console.log(capacidad);
                         //console.log(offset1);
                         //console.log(offset2);
                     }
+
+                    offsets[0].y = 0;
                 }
             };
             scope.buildLayouts = function(){
