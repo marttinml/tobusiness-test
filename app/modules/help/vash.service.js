@@ -15,7 +15,7 @@
             - busqueda por determinado atributo (name, title, text, ...)
             RETURN
             - offset {x, y}
-        */ 
+        */
         self.findOffsetInArray = function (arr, capacity, searchIn, searchBy) {
 
             var offset = {};
@@ -27,8 +27,8 @@
             var textToMatch = '';
 
             if (searchIn !== '') {
-                if ( capacity[searchIn] !== undefined && capacity[searchIn].length) {
-                    
+                if (capacity[searchIn] !== undefined && capacity[searchIn].length) {
+
                     // Search In: Array
                     for (var k in arr) {
                         textInTheArray = arr[k].text;
@@ -45,7 +45,7 @@
                     // Search In: Object
                     for (var j in arr) {
                         textInTheArray = arr[j].text;
-                        if(capacity[searchIn]){
+                        if (capacity[searchIn]) {
                             textToMatch = capacity[searchIn][searchBy];
                             if (textToMatch !== undefined &&
                                 textToMatch.toUpperCase() == textInTheArray.toUpperCase()) {
@@ -67,7 +67,7 @@
             }
             return offset;
         };
-        
+
         /* 
             intersectionFill() 
             PARAMS
@@ -75,22 +75,23 @@
             - capacidad 2 {nombre, aplicaciones, kpis, ...}
             RETURN 
             - capacidad 1 {nombre, aplicaciones, kpis, ...} + direction:String, intersection:Array[Array]
-        */ 
-        self.intersectionFill = function(first, second, matrix) {
+        */
+        self.intersectionFill = function (first, second, matrix) {
             var intersectionArray = [[], [], []];
             var direction = 'down';
             var positionOfArray = 1;
-            
+
 
             //console.log(first.offsets)
-            
+
+
             if (matrix) {
-                for (var off in first.offsets){
-                    
+                for (var off in first.offsets) {
+
                     intersectionArray[off][0] = first.offsets[off];
                     intersectionArray[off][1] = {};
                     intersectionArray[off][2] = second.offsets[off];
-                                        
+
                 }
                 console.log(intersectionArray);
             } else {
@@ -120,14 +121,13 @@
                     } else {
                         intersectionArray[1] = {
                             x: x0,
-                            y: y1 / 2
+                            y: ((y1 - y0) / 2) + y0
                         };
                     }
-                } 
+                }
                 // Verifica si es horizontal
                 else {
-
-                    if (x0 < x1) {
+                    if (x0 <= x1) {
                         direction = 'right';
                     } else {
                         direction = 'left';
@@ -135,34 +135,34 @@
 
                     if (y0 == y1) {
                         intersectionArray[1] = {
-                            x: x1 / 2,
+                            x: ((x1 - x0) / 2) + x0,
                             y: y0
                         };
                     } else {
                         if (y0 > y1) {
                             intersectionArray[1] = {
-                                x:x0,
-                                y:y1
+                                x: x0,
+                                y: y1
                             };
                         } else {
                             intersectionArray[1] = {
-                                x:x1,
-                                y:y0
+                                x: x1,
+                                y: y0
                             };
                         }
                     }
                 }
             }
-            
+
             first.intersection = intersectionArray;
             first.direction = direction;
-            
+
             return first;
         };
 
         return self;
     };
-    
+
 
     angular
         .module('mVash', [])
