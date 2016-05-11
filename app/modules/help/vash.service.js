@@ -68,15 +68,15 @@
             var intersectionArray = [];
             
             first.intersection = [];
-            intersectionArray[0] = first.offsets[0];
+            intersectionArray[0] = first.offsets[1];
             intersectionArray[1] = {};
-            intersectionArray[2] = second.offsets[0];
+            intersectionArray[2] = second.offsets[1];
             
-            var x0 = first.offsets[0].x;
-            var y0 = first.offsets[0].y;
+            var x0 = first.offsets[1].x;
+            var y0 = first.offsets[1].y;
             
-            var x1 = second.offsets[0].x;
-            var y1 = second.offsets[0].y;
+            var x1 = second.offsets[1].x;
+            var y1 = second.offsets[1].y;
             
             // Verifica si es vertical
             

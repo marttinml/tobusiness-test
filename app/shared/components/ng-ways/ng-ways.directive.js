@@ -167,7 +167,9 @@ Snap.plugin(function (Snap, Element, Paper) {
             scope.height = 1000;
             scope.$factory = {
                 rect : function (offset, w, h) {
-                    return scope.svg.rect(offset.x, offset.y, w, h);
+                    x = offset.x - (w/2);
+                    y = offset.y - (h/2); 
+                    return scope.svg.rect(x, y, w, h);
                 },
                 line : function (start, end) {
                     return scope.svg.line(start.x, start.y, end.x, end.y);
@@ -183,8 +185,6 @@ Snap.plugin(function (Snap, Element, Paper) {
                         "text-anchor": "middle",
                         'font-size': '10px'
                     });
-                    console.log(text.node.clientHeight);
-                    console.log(text);
                     var yt = (offset.y +(h / 2) - (text.node.clientHeight / 2))+10;
                     text.attr({ y: yt});
                     return text;
@@ -230,11 +230,27 @@ Snap.plugin(function (Snap, Element, Paper) {
             };
 
             scope.settingProcesos = function(procesos){
+                var offsets = [{x:0,y:0},{x:0,y:100},{x:0,y:0}];
                 for(i in procesos){
                     for(j in procesos[i].capacidades){
                         var capacidad = procesos[i].capacidades[j];
                         capacidad.offsets = [{x:0,y:0},{x:0,y:0},{x:0,y:0}];
+
+                        capacidad.offsets[0].x = scope.config.layouts.initial[i].offset.x;
+                        capacidad.offsets[0].y = offsets[0].y;
+                        offsets[0].y += 100;
+
+                        capacidad.offsets[1].x = $vash.findOffsetInArray(scope.config.layouts.vertical, capacidad,'areas').x;
+                        capacidad.offsets[1].y = offsets[1].y;
+                        offsets[1].y += 120;
+
+
+                        capacidad.offsets[2].y = $vash.findOffsetInArray(scope.config.layouts.horizontal, capacidad,'aplicaciones').y;
+                        capacidad.offsets[2].x = offsets[2].x;
+                        offsets[2].x += 300;
                     }
+                    offsets[0].y = 0;
+                    offsets[1].y += 100;
                 }
             };
 
@@ -274,23 +290,28 @@ Snap.plugin(function (Snap, Element, Paper) {
 
             
             scope.buildLayoutVertical = function(){
-                  var offset = { x:0, y:0 };
-                var height = 30;
-                var width = 364;
+                    var height = 30;
+                    var width = 364;
+                    var offset = { x: (width / 2), y: (height / 2) };
+                
                 scope.layoutVerticalGroup = scope.svg.group();
                 for(i in scope.config.layouts.vertical){
                     var rect,line,text;
                     rect = scope.$factory.rect(offset, width, height);
                     rect = scope.$paint.rectApplication(rect);
-                    line = scope.$factory.line({x:offset.x + width, y : offset.y }, { x : offset.x + width, y : 3000});
+                    line = scope.$factory.line({x:offset.x + (width/2), y : offset.y-(height/2) }, { x : offset.x + (width/2), y : 3000});
                     line = scope.$paint.lineApplication(line);
-                    text = scope.$factory.text({x:offset.x + (width/2) , y : offset.y + (height/2) + 5 }, (width-40), scope.config.layouts.vertical[i].text);
+                    text = scope.$factory.text(offset, (width-40), scope.config.layouts.vertical[i].text);
                     text = scope.$paint.textAreas(text);
                     
                     var g = scope.svg.group(rect, line, text);
                     scope.layoutVerticalGroup.append(g);
 
-                    scope.config.layouts.vertical[i].offset = JSON.parse(JSON.stringify(offset)); 
+                    var offsetCopy = JSON.parse(JSON.stringify(offset));
+                    //offsetCopy.x = offsetCopy.x + (width/2);
+                    console.log("offset");
+                    console.log(offset);
+                    scope.config.layouts.vertical[i].offset = offsetCopy; 
                     offset.x += width;
                 }
             };
@@ -316,7 +337,9 @@ Snap.plugin(function (Snap, Element, Paper) {
             };
             scope.buildCapacidades = function(){
                 
-                var offsets = [{x:0,y:0},{x:0,y:50},{x:0,y:0}];
+                // var offsets = [{x:0,y:0},{x:0,y:50},{x:0,y:0}];
+                var capacidadWidth = 250;
+                var capacidadHeight = 100;
 
                 //console.log(scope.config.layouts.horizontal);
 
@@ -325,38 +348,18 @@ Snap.plugin(function (Snap, Element, Paper) {
 
                     for(j in scope.source[i].capacidades){
                         var capacidad = scope.source[i].capacidades[j];
-                        // var offset = scope.$factory.getPosition(array, capacidad);
 
-                        capacidad.offsets[0].x = scope.config.layouts.initial[i].offset.x;
-                        capacidad.offsets[0].y = offsets[0].y;
-                        offsets[0].y += 100;
-
-                        capacidad.offsets[1].x = $vash.findOffsetInArray(scope.config.layouts.vertical, capacidad,'areas').x;
-                        capacidad.offsets[1].y = offsets[1].y;
-                        offsets[1].y += 120;
-
-
-                        capacidad.offsets[2].y = $vash.findOffsetInArray(scope.config.layouts.horizontal, capacidad,'aplicaciones').y;
-                        capacidad.offsets[2].x = offsets[2].x;
-                        offsets[2].x += 300;
-
-                        var offsetRect = {x : (capacidad.offsets[1].x + 50), y: capacidad.offsets[1].y}
-                        var rect = scope.$factory.rect(offsetRect, 250, 100);
+                        var rect = scope.$factory.rect(capacidad.offsets[1], capacidadWidth, capacidadHeight);
                         rect = scope.$paint.rectCapacidades(rect);
+                        var textbox = scope.$factory.textbox(capacidad.offsets[1], capacidadWidth,capacidadHeight,capacidad.name);
 
                         if((Number(j)+1) < scope.source[i].capacidades.length){
-                            //console.log(scope.source[i].capacidades[(Number(j)+1)]);
                             capacidad = $vash.intersectionFill(capacidad, scope.source[i].capacidades[(Number(j)+1)]);
-                            
                         }
-
-                        console.log(capacidad.intersection);
                     }
-
-                    offsets[0].y = 0;
-                    offsets[1].y += 100;
                 }
             };
+
             scope.buildLayouts = function(){
                 scope.buildLayoutInitial();
                 scope.buildLayoutHorizontal();
