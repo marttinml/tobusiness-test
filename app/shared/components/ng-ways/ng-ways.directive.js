@@ -214,7 +214,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                 },
                 rectCapacidades : function(rect){
                     rect.attr({
-                        fill: "rgba(255,255,255)",
+                        fill: "rgba(255,255,255,1)",
                         stroke: "rgb(150,150,150)",
                         strokeWidth: 0.5
                     });
