@@ -67,10 +67,10 @@
         self.intersectionFill = function(first, second) {
             var intersectionArray = [];
             
+            first.intersection = [];
             intersectionArray[0] = first.offsets[0];
             intersectionArray[1] = {};
             intersectionArray[2] = second.offsets[0];
-            
             
             var x0 = first.offsets[0].x;
             var y0 = first.offsets[0].y;
@@ -95,20 +95,42 @@
             } 
             // Verifica si es horizontal
             else {
-                // Verifica si es horizontal a la derecha
-                if (y0 == y1) {
-                    intersectionArray[1] = {
-                        x: x1 / 2,
-                        y: y0
-                    };
+                
+                if(x0 < x1) {
+
+                    // Verifica si es horizontal a la derecha
+                    if (y0 == y1) {
+                        intersectionArray[1] = {
+                            x: x1 / 2,
+                            y: y0
+                        };
+                    }
+                    // Verifica si es horizontal y hacia abajo
+                    else {
+                        intersectionArray[1] = {
+                            x:x0,
+                            y:y1
+                        };
+                    }
+                    
+                } else {
+                    // Verifica si es horizontal a la derecha
+                    if (y0 == y1) {
+                        intersectionArray[1] = {
+                            x: x0 / 2,
+                            y: y1
+                        };
+                    }
+                    // Verifica si es horizontal y hacia abajo
+                    else {
+                        intersectionArray[1] = {
+                            x:x0,
+                            y:y1
+                        };
+                    }
                 }
-                // Verifica si es horizontal y hacia abajo
-                else {
-                    intersectionArray[1] = {
-                        x:x0,
-                        y:y1
-                    };
-                }
+                
+
             }
             
             first.intersection = intersectionArray;
