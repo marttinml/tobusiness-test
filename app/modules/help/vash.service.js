@@ -132,9 +132,6 @@
                 
 
             }
-
-            console.log('Second')
-            console.log(intersectionArray[2])
             
             first.intersection = intersectionArray;
             
