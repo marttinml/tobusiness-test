@@ -320,8 +320,9 @@ Snap.plugin(function (Snap, Element, Paper) {
                     offsets[1].y += 170;
 
                     proceso.offsets = JSON.parse(JSON.stringify(offsetsProcesos));
-                    proceso.width = 0;
-                    proceso.height =  0;
+                    proceso = $vash.settingDimensionsToProcess(proceso);
+                    // proceso.width = 0;
+                    // proceso.height =  0;
 
                     console.log(JSON.stringify(proceso));
                 }
@@ -431,12 +432,12 @@ Snap.plugin(function (Snap, Element, Paper) {
                 for(i in scope.source){
                     var intersection;
                     var proceso     = scope.source[i];
-                    proceso = $vash.settingDimensionsToProcess(proceso);
                     
+
                     if((Number(i)+1) < scope.source.length){
                         proceso = $vash.intersectionFill(proceso, scope.source[Number(i)+1]);
                         var xys = JSON.parse(JSON.stringify(proceso.intersection));
-                        xys[2].y = xys[2].y - (proceso.height/2) - 15;
+                        xys[2].y = xys[2].y - (scope.source[Number(i)+1].height/2) - 15;
                         var arr = [xys[0].x,xys[0].y,xys[1].x,xys[1].y,xys[2].x,xys[2].y,xys[1].x,xys[1].y,xys[0].x,xys[0].y];
                         intersection = scope.$factory.polyline(arr);
                         arrow = scope.$factory.arrow(xys[2],12);
