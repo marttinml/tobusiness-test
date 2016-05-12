@@ -215,6 +215,75 @@
             
             return first;
         };
+        
+        self.settingDimensionsToProcess = function(proceso) {
+            
+            if (proceso.capacidades !== undefined && proceso.capacidades.length) {
+                
+                // Encuentra el primero y el último
+                
+                var first, last;
+                
+                for(var i in proceso.capacidades){
+                    if(i == 0) {
+                        first = proceso.capacidades[i].offsets[1];
+                    }
+                    if(i == (proceso.capacidades.length - 1)) {
+                        last = proceso.capacidades[i].offsets[1];
+                    }
+                }
+                
+                
+                // Alto y ancho
+                var height = last.y - first.y + 220;
+                var width = last.x - first.x + 182;
+                
+                
+                // Extremos Y
+                var extremosY = {
+                    first: first.y - 170,
+                    last: last.y + 70
+                };
+                // Offset Y
+                var offsetY = (extremosY.last - extremosY.first) / 2;
+
+                
+                // Extremos X, Offset X
+                var offsetX, extremosX;
+                
+                if (last.x != first.x) {
+                    if(last.x > first.x){
+                        extremosX = {
+                            first: first.x - 95,
+                            last: last.x + 95
+                        };
+                        offsetX = (extremosX.last - extremosX.first) / 2;
+                    } else {
+                        extremosX = {
+                            first: first.x - 95,
+                            last: last.x + 95
+                        };
+                        offsetX = (extremosX.first - extremosX.last) / 2;
+                    }
+                } else {
+                    offsetX = last.x;
+                }
+                
+                // Offset Principal
+                var mainOffset = {
+                    x: offsetX,
+                    y: offsetY
+                };
+                
+                proceso.offsets[1] = mainOffset;
+                proceso.width = width;
+                proceso.height = height;
+                
+                return proceso;
+
+            }
+            
+        };
 
         return self;
     };
