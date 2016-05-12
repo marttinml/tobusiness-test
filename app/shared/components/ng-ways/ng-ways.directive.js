@@ -164,7 +164,7 @@ Snap.plugin(function (Snap, Element, Paper) {
 
             scope.svg = Snap(element[0]);
             scope.width = 2000;
-            scope.height = 1000;
+            scope.height = 5500;
             scope.$factory = {
                 rect : function (offset, w, h) {
                     x = offset.x - (w/2);
@@ -187,7 +187,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     });
                     // var yt = offset.y - (text.node.clientHeight / 2);
                     // //var yt = (offset.y +(h / 2) - (text.node.clientHeight / 2))+10;
-                    var yt = offset.y + (fontSize / 3);
+                    var yt = offset.y - (text.node.clientHeight / 2)+fontSize;
                     text.attr({ y: yt});
                     return text;
                 },
@@ -256,7 +256,8 @@ Snap.plugin(function (Snap, Element, Paper) {
             };
 
             scope.settingProcesos = function(procesos){
-                var offsets = [{x:0,y:0},{x:0,y:100},{x:0,y:0}];
+                var offsets = [{x:0,y:0},{x:0,y:150},{x:0,y:0}];
+                var offsetsProcesos = [{x:0,y:0},{x:0,y:150},{x:0,y:0}]; 
                 for(i in procesos){
                     for(j in procesos[i].capacidades){
                         var capacidad = procesos[i].capacidades[j];
@@ -277,6 +278,9 @@ Snap.plugin(function (Snap, Element, Paper) {
                     }
                     offsets[0].y = 0;
                     offsets[1].y += 100;
+
+                    offsetsProcesos[1].x
+                    offsetsProcesos[1].x = offsets[1].y
                 }
             };
 
@@ -325,7 +329,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     var rect,line,text;
                     rect = scope.$factory.rect(offset, width, height);
                     rect = scope.$paint.rectApplication(rect);
-                    line = scope.$factory.line({x:offset.x + (width/2), y : offset.y - (height/2) }, { x : offset.x + (width/2), y : 3000});
+                    line = scope.$factory.line({x:offset.x + (width/2), y : offset.y - (height/2) }, { x : offset.x + (width/2), y : scope.height});
                     line = scope.$paint.lineApplication(line);
                     text = scope.$factory.textbox(offset, width-40,height, scope.config.layouts.vertical[i].text,16);
                     text = scope.$paint.textAreas(text);
@@ -364,7 +368,7 @@ Snap.plugin(function (Snap, Element, Paper) {
             scope.buildCapacidades = function(){
                 
                 // var offsets = [{x:0,y:0},{x:0,y:50},{x:0,y:0}];
-                var capacidadWidth = 200;
+                var capacidadWidth = 150;
                 var capacidadHeight = 100;
 
                 //console.log(scope.config.layouts.horizontal);
@@ -374,6 +378,14 @@ Snap.plugin(function (Snap, Element, Paper) {
 
                     for(j in scope.source[i].capacidades){
                         var capacidad = scope.source[i].capacidades[j];
+
+                        if((Number(j)+1) < scope.source[i].capacidades.length){
+                            capacidad = $vash.intersectionFill(capacidad, scope.source[i].capacidades[(Number(j)+1)]);
+                            var xys = capacidad.intersection;
+                            var arr = [xys[0].x,xys[0].y,xys[1].x,xys[1].y,xys[2].x,xys[2].y,xys[1].x,xys[1].y,xys[0].x,xys[0].y];
+                            var intersection = scope.$factory.polyline(arr);
+                            console.log(capacidad);
+                        }
 
                         var rect = scope.$factory.rect(capacidad.offsets[1], capacidadWidth, capacidadHeight);
                         rect = scope.$paint.rectCapacidades(rect);
@@ -387,13 +399,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         
 
 
-                        if((Number(j)+1) < scope.source[i].capacidades.length){
-                            capacidad = $vash.intersectionFill(capacidad, scope.source[i].capacidades[(Number(j)+1)]);
-                            var xys = capacidad.intersection;
-                            var arr = [xys[0].x,xys[0].y,xys[1].x,xys[1].y,xys[2].x,xys[2].y,xys[1].x,xys[1].y];
-                            var intersection = scope.$factory.polyline(arr);
-                            console.log(capacidad);
-                        }
+                        
 
                     }
                 }
