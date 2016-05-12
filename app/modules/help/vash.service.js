@@ -5,6 +5,8 @@
     var service = function () {
 
         var self = this;
+        
+        //filter: scope.svg.filter(Snap.filter.shadow(0, 3, 3, '#000', 0.3))
 
         /* 
             findOffsetInArray() 
@@ -216,12 +218,13 @@
             return first;
         };
         
+        
+        
         self.settingDimensionsToProcess = function(proceso) {
             
             if (proceso.capacidades !== undefined && proceso.capacidades.length) {
                 
                 // Encuentra el primero y el último
-                
                 var first, last;
                 
                 for(var i in proceso.capacidades){
@@ -232,7 +235,6 @@
                         last = proceso.capacidades[i].offsets[1];
                     }
                 }
-                
                 
                 // Alto y ancho
                 var height = last.y - first.y + 220;
@@ -279,20 +281,57 @@
                 proceso.width = width;
                 proceso.height = height;
                 
-                console.log(first.y)
-                console.log(extremosY)
-                
-                console.log(mainOffset);
-
-                console.log('w: '+width);
-                console.log('h: '+height);
-                
                 return proceso;
 
             }
             
             
         };
+        
+        
+        self.getElementsTransformY = function(arrayProcesos, capacidad) {
+            
+            var indexProcesoComienzo = 0;
+            var indexCapacidadComienzo = 0;
+            
+            //Buscamos el index en procesos y capacidades respecto a la capacidad elegida
+            
+            for (var i in arrayProcesos) {
+                var proceso = arrayProcesos[i];
+                for (var j in proceso.capacidades) {
+                    
+                    var capacidadElegida = capacidad.name;
+                    var capacidadEncontrada = proceso.capacidades[j].name;
+                    
+                    if (capacidadEncontrada == capacidadElegida) {
+                        indexProcesoComienzo = (Number(i));
+                        indexCapacidadComienzo = (Number(j));
+                    }
+                }
+            }
+            
+            
+            // Se crea el objeto a regresar, vacío por defecto
+            
+            var arrayRetorno = {
+                procesos: [],
+                capacidades: [],
+                index: [indexProcesoComienzo, indexCapacidadComienzo],
+                indexProceso: indexProcesoComienzo,
+                indexCapacidad: indexCapacidadComienzo
+            };
+            
+            for (var k = (indexProcesoComienzo + 1); k < arrayProcesos.length; k++) {
+                arrayRetorno.procesos.push(arrayProcesos[k]);
+            }
+            
+            for (var l = (indexCapacidadComienzo + 1); l < arrayProcesos[(indexProcesoComienzo)].capacidades.length; l++) {
+                arrayRetorno.capacidades.push(arrayProcesos[(indexProcesoComienzo)].capacidades[l]);
+            }
+            
+            return arrayRetorno;
+        };
+        
 
         return self;
     };
