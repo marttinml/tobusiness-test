@@ -84,10 +84,7 @@
             var intersectionArray = [[], [], []];
             var direction = 'down';
             var positionOfArray = 1;
-
-
-            //console.log(first.offsets)
-
+            var x0, y0, x1, y1;
 
             if (matrix) {
                 for (var off in first.offsets) {
@@ -95,18 +92,73 @@
                     intersectionArray[off][0] = first.offsets[off];
                     intersectionArray[off][1] = {};
                     intersectionArray[off][2] = second.offsets[off];
+                    
+                    x0 = first.offsets[off].x;
+                    y0 = first.offsets[off].y;
+
+                    x1 = second.offsets[off].x;
+                    y1 = second.offsets[off].y;
+                    
+                    // Verifica si es vertical
+                    if (x0 == x1) {
+
+                        if (y0 >= y1) {
+                            direction = 'down';
+                        } else {
+                            direction = 'up';
+                        }
+
+                        if (y0 == y1) {
+                            intersectionArray[off][1] = {
+                                x: x0,
+                                y: y1
+                            };
+                        } else {
+                            intersectionArray[off][1] = {
+                                x: x0,
+                                y: ((y1 - y0) / 2) + y0
+                            };
+                        }
+                    }
+                    // Verifica si es horizontal
+                    else {
+                        if (x0 <= x1) {
+                            direction = 'right';
+                        } else {
+                            direction = 'left';
+                        }
+
+                        if (y0 == y1) {
+                            intersectionArray[off][1] = {
+                                x: ((x1 - x0) / 2) + x0,
+                                y: y0
+                            };
+                        } else {
+                            if (y0 > y1) {
+                                intersectionArray[off][1] = {
+                                    x: x0,
+                                    y: y1
+                                };
+                            } else {
+                                intersectionArray[off][1] = {
+                                    x: x1,
+                                    y: y0
+                                };
+                            }
+                        }
+                    }
 
                 }
-                console.log(intersectionArray);
+
             } else {
                 intersectionArray[0] = first.offsets[positionOfArray];
                 intersectionArray[1] = {};
                 intersectionArray[2] = second.offsets[positionOfArray];
-                var x0 = first.offsets[positionOfArray].x;
-                var y0 = first.offsets[positionOfArray].y;
+                x0 = first.offsets[positionOfArray].x;
+                y0 = first.offsets[positionOfArray].y;
 
-                var x1 = second.offsets[positionOfArray].x;
-                var y1 = second.offsets[positionOfArray].y;
+                x1 = second.offsets[positionOfArray].x;
+                y1 = second.offsets[positionOfArray].y;
 
                 // Verifica si es vertical
                 if (x0 == x1) {
