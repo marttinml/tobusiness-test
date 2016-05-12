@@ -257,6 +257,7 @@ Snap.plugin(function (Snap, Element, Paper) {
 
             scope.settingProcesos = function(procesos){
                 var offsets = [{x:0,y:0},{x:0,y:150},{x:0,y:0}];
+                var offsetsProcesos = [{x:0,y:0},{x:0,y:150},{x:0,y:0}]; 
                 for(i in procesos){
                     for(j in procesos[i].capacidades){
                         var capacidad = procesos[i].capacidades[j];
@@ -277,6 +278,9 @@ Snap.plugin(function (Snap, Element, Paper) {
                     }
                     offsets[0].y = 0;
                     offsets[1].y += 100;
+
+                    offsetsProcesos[1].x
+                    offsetsProcesos[1].x = offsets[1].y
                 }
             };
 
