@@ -241,11 +241,11 @@
                 
                 // Extremos Y
                 var extremosY = {
-                    first: first.y - 170,
+                    first: first.y + 160,
                     last: last.y + 70
                 };
                 // Offset Y
-                var offsetY = (extremosY.last - extremosY.first) / 2;
+                var offsetY = first.y + ((extremosY.last - extremosY.first) / 2);
 
                 
                 // Extremos X, Offset X
@@ -254,16 +254,16 @@
                 if (last.x != first.x) {
                     if(last.x > first.x){
                         extremosX = {
-                            first: first.x - 95,
+                            first: first.x + 95,
                             last: last.x + 95
                         };
-                        offsetX = (extremosX.last - extremosX.first) / 2;
+                        offsetX = first.x + ((extremosX.last - extremosX.first) / 2);
                     } else {
                         extremosX = {
-                            first: first.x - 95,
+                            first: first.x + 95,
                             last: last.x + 95
                         };
-                        offsetX = (extremosX.first - extremosX.last) / 2;
+                        offsetX = first.x + ((extremosX.first - extremosX.last) / 2);
                     }
                 } else {
                     offsetX = last.x;
@@ -279,9 +279,18 @@
                 proceso.width = width;
                 proceso.height = height;
                 
+                console.log(first.y)
+                console.log(extremosY)
+                
+                console.log(mainOffset);
+
+                console.log('w: '+width);
+                console.log('h: '+height);
+                
                 return proceso;
 
             }
+            
             
         };
 
