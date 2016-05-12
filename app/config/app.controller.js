@@ -142,7 +142,7 @@
                             }
                           ],
                           "areas":{
-                              "name": "SALES REQUEST",
+                              "name": "IT",
                               "selected": false
                             },
                           "subcapacidades": [

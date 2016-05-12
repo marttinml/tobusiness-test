@@ -247,6 +247,14 @@ Snap.plugin(function (Snap, Element, Paper) {
                     });
                     return rect;
                 },
+                rectProcesoHeader :function(rect){
+                     rect.attr({
+                        stroke: "rgb(144,99,205)",
+                        fill: "rgb(234,234,234)",
+                        strokeWidth: 0
+                    });
+                    return rect;
+                },
                 lineApplication : function(line){
                     line.attr({
                         stroke: "rgb(200,200,200)",
@@ -389,7 +397,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     default: break;
                 }
             };
-            scope.buildCapacidad = function(capacidad){
+            scope.buildCapacidad = function(capacidad,i,j){
                 var capacidadWidth = 150;
                 var capacidadHeight = 100;
                 var rect,textbox,rectFooterOffset,rectFooter,textboxFooter,intersection,arrow;
@@ -414,17 +422,39 @@ Snap.plugin(function (Snap, Element, Paper) {
                 textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,capacidadHeight,capacidad.aplicaciones[0].name,12);
                 textboxFooter = scope.$paint.fontColorWhite(textboxFooter);
             };
+            scope.buildSubCapacidades = function(){
+
+            };
             scope.buildCapacidades = function(){
                 
-                
+                scope.procesosGroup = scope.svg.group();
                 for(i in scope.source){
+                    var intersection;
                     var proceso     = scope.source[i];
                     proceso = $vash.settingDimensionsToProcess(proceso);
+                    
+                    if((Number(i)+1) < scope.source.length){
+                        proceso = $vash.intersectionFill(proceso, scope.source[Number(i)+1]);
+                        var xys = JSON.parse(JSON.stringify(proceso.intersection));
+                        xys[2].y = xys[2].y - (proceso.height/2) - 15;
+                        var arr = [xys[0].x,xys[0].y,xys[1].x,xys[1].y,xys[2].x,xys[2].y,xys[1].x,xys[1].y,xys[0].x,xys[0].y];
+                        intersection = scope.$factory.polyline(arr);
+                        arrow = scope.$factory.arrow(xys[2],12);
+                        //console.log(capacidad);
+                    }
+
+                    
                     var rectProceso = scope.$factory.rect(proceso.offsets[1], proceso.width, proceso.height);
                     rectProceso = scope.$paint.rectProceso(rectProceso);
+                    var offsetHeader = {x: proceso.offsets[1].x, y:proceso.offsets[1].y - (proceso.height/2) + 45};
+                    rectProcesoHeader = scope.$factory.rect(offsetHeader,proceso.width,90);
+                    rectProcesoHeader = scope.$paint.rectProcesoHeader(rectProcesoHeader);
+                    var procesoGroup = scope.svg.group();
+
+
 
                     for(j in scope.source[i].capacidades){
-                        scope.buildCapacidad(scope.source[i].capacidades[j]);
+                        scope.buildCapacidad(scope.source[i].capacidades[j],i,j);
                     }
                     
                 }
