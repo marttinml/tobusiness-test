@@ -36,189 +36,20 @@ Snap.plugin(function (Snap, Element, Paper) {
 });
 
 (function () {
-    var Directive = function ($vash) {
+    var Directive = function ($vash, $paint, $shapes) {
         var Link = function (scope, element, attrs, ngModel) {
 
             scope.svg = Snap(element[0]);
             scope.width = 2000;
             scope.height = 6000;
             
-            // Crea cada una de las formas
-            scope.$factory = {
-                rect: function (offset, w, h) {
-                    x = offset.x - (w / 2);
-                    y = offset.y - (h / 2);
-                    return scope.svg.rect(x, y, w, h);
-                },
-                line: function (start, end) {
-                    return scope.svg.line(start.x, start.y, end.x, end.y);
-                },
-                text: function (offset, w, text) {
-                    var text = scope.svg.multitext(offset.x, offset.y, text, w, {
-                        "text-anchor": "middle"
-                    });
-                    return text;
-                },
-                textbox: function (offset, w, h, text, fontSize) {
-                    var text = scope.svg.multitext(offset.x, offset.y, text, w, {
-                        "text-anchor": "middle",
-                        'font-size': fontSize + 'px'
-                    });
-                    // var yt = offset.y - (text.node.clientHeight / 2);
-                    // //var yt = (offset.y +(h / 2) - (text.node.clientHeight / 2))+10;
-                    var yt = offset.y - (text.node.clientHeight / 2) + fontSize;
-                    text.attr({
-                        y: yt
-                    });
-                    return text;
-                },
-                polyline: function (arr) {
-                    var polyline = scope.svg.polyline(arr);
-                    polyline.attr({
-                        fill: "rgb(100,100,100)",
-                        stroke: "rgb(100,100,100)",
-                        strokeWidth: 1
-                    });
-                    // factotyArrow();
-                    return polyline;
-                },
-                arrow: function (offset, b) {
-                    var x = offset.x;
-                    var y = offset.y;
-                    var pathStr = "M" + (x - (b / 2)) + " " + y + " L" + (x + (b / 2)) + " " + y + " L" + x + " " + (y + b) + " Z";
-                    var path = scope.svg.path(pathStr);
-
-                    path.attr({
-                        fill: "#757575",
-                        stroke: "#757575",
-                        strokeWidth: 0
-                    });
-                    return path;
-                },
-                rombo: function (offset, w, h) {
-                    var p1 = {
-                        x: offset.x,
-                        y: offset.y - (h / 2)
-                    };
-                    var p2 = {
-                        x: offset.x + (w / 2),
-                        y: offset.y
-                    };
-                    var p3 = {
-                        x: offset.x,
-                        y: offset.y + (h / 2)
-                    };
-                    var p4 = {
-                        x: offset.x - (w / 2),
-                        y: offset.y
-                    };
-
-                    var pathStr = "M" + p1.x + " " + p1.y + " L" + p2.x + " " + p2.y + " L" + p3.x + " " + p3.y + " L" + p4.x + " " + p4.y + " Z";
-                    var path = scope.svg.path(pathStr);
-
-                    path.attr({
-                        fill: "rgb(240, 240, 240)",
-                        stroke: "#979797",
-                        strokeWidth: 1
-                    });
-                    return path;
-                },
-                circle: function (offset, r) {
-                    var x = offset.x;
-                    var y = offset.y;
-                    var circle = scope.svg.circle(x, y, r);
-                    return circle;
-                }
-            };
+            // Se configura el scope svg en $shapes
+            $shapes.svg(scope.svg);
+            // este factory crea cada una de las formas
+            scope.$factory = $shapes.factory;
             
-            // Decora las formas
-            scope.$paint = {
-                rectApplication: function (rect) {
-                    rect.attr({
-                        fill: "rgba(21,11,44,.65)",
-                        strokeWidth: 0
-                    });
-                    return rect;
-                },
-                rectCapacidades: function (rect) {
-                    rect.attr({
-                        fill: "rgba(255,255,255,1)",
-                        stroke: "rgb(150,150,150)",
-                        strokeWidth: 0.5
-                    });
-                    return rect;
-                },
-                rectCapacidadesFooter: function (rect) {
-                    rect.attr({
-                        fill: "rgba(21,11,44,.65)",
-                        strokeWidth: 0
-                    });
-                    return rect;
-                },
-                rectCapacidadesBack: function (rect) {
-                    rect.attr({
-                        fill: "rgba(144, 99, 205, 0.3)",
-                        strokeWidth: 0
-                    });
-                    return rect;
-                },
-                rectProceso: function (rect) {
-                    rect.attr({
-                        stroke: "rgb(144,99,205)",
-                        fill: "rgb(255,255,255)",
-                        strokeWidth: 1
-                    });
-                    return rect;
-                },
-                rectProcesoHeader: function (rect) {
-                    rect.attr({
-                        stroke: "rgb(144,99,205)",
-                        fill: "rgba(234,234,234,.85)",
-                        strokeWidth: 0
-                    });
-                    return rect;
-                },
-                lineApplication: function (line) {
-                    line.attr({
-                        stroke: "rgb(200,200,200)",
-                        strokeWidth: 0.5
-                    });
-                    return line;
-                },
-                textApplication: function (text) {
-                    text.attr({
-                        transform: "r270",
-                        fill: "rgb(255,255,255)"
-                    });
-                    return text;
-                },
-                textAreas: function (text) {
-                    text.attr({
-                        fill: "rgb(255,255,255)"
-                    });
-                    return text;
-                },
-                fontColorWhite: function (text) {
-                    text.attr({
-                        fill: "rgb(255,255,255)"
-                    });
-                    return text;
-                },
-                textLeft: function (text) {
-                    text.attr({
-                        'text-anchor': "initial"
-                    });
-                    return text;
-                },
-                circleEnd: function (circle) {
-                    circle.attr({
-                        fill: "#9063CD",
-                        strokeWidth: 0
-                    });
-                    return circle;
-                }
-
-            };
+            // este service se encarga de decorar las formas
+            scope.$paint = $paint;
             
             // Configura los procesos, agrega atributos de cada uno
             scope.settingProcesos = function (procesos) {
@@ -412,7 +243,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     subCapacidadGroup.append(activity).append(text);
                     break;
                 case 'if':
-                    console.log('scope.$factory.rombo(offset,130,80)');
+                    //console.log('scope.$factory.rombo(offset,130,80)');
                     var rombo = scope.$factory.rombo(offset, 130, 80);
                     var text = scope.$factory.textbox(offset, 130, 80, subcapacidad.text, 12);
                     subCapacidadGroup.append(activity, text);
@@ -679,6 +510,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     scope.reset();
                 }
             });
+            
 
         };
         return {

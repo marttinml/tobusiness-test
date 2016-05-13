@@ -22,7 +22,7 @@
 
 
 
-        console.log($rootScope.data.arquitectura[0].dominios[0].megaprocesos[0].macroprocesos[0].procesos);
+        //console.log($rootScope.data.arquitectura[0].dominios[0].megaprocesos[0].macroprocesos[0].procesos);
 
     };
     controller.$inject = ['$scope', '$rootScope', '$routeParams'];
