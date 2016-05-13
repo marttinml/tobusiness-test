@@ -39,129 +39,7 @@ Snap.plugin(function (Snap, Element, Paper) {
     var Directive = function ($vash) {
         var Link = function (scope, element, attrs, ngModel) {
     
-            // scope.$factory = function (obj,index,last) {
-            //     var x = scope.offset.x;
-            //     var y = scope.offset.y;
-
-            //     var factoryRect = function () {
-            //         var xt = x - (scope.figuresWidth / 2);
-            //         var yt = y;
-            //         var rect = scope.svg.rect(xt, yt, scope.figuresWidth, scope.figuresHeight);
-            //         rect.attr({
-            //             fill: "rgb(100,100,100)",
-            //             stroke: "#979797",
-            //             strokeWidth: 0.5
-            //         });
-            //         return rect;
-            //     };
-
-            //     var factotyRombo = function () {
-            //         var p1 = {x:x,y:y};
-            //         var p2 = {x:x+(scope.figuresWidth/2), y:y + (scope.figuresHeight/2)};
-            //         var p3 = {x:x, y:  y + scope.figuresHeight};
-            //         var p4 = {x:x - (scope.figuresWidth/2) , y:y + (scope.figuresHeight / 2)};
-
-            //         var pathStr = "M" + p1.x + " " + p1.y + " L" + p2.x + " " + p2.y + " L" + p3.x + " " + p3.y + " L" + p4.x + " " + p4.y + " Z";
-            //         var path = scope.svg.path(pathStr);
-                
-            //         path.attr({
-            //             fill: "rgb(240, 240, 240)",
-            //             stroke: "#979797",
-            //             strokeWidth: 1
-            //         });
-            //         return path;
-            //     };
-
-            //     var factoryText = function () {
-            //         var text = scope.svg.multitext(x, y, scope.beforeIndex+'.'+index+' '+obj.text, scope.figuresWidth, {
-            //             "text-anchor": "middle",
-            //             'font-size': '10px'
-            //         });
-            //         console.log(text.node.clientHeight);
-            //         console.log(text);
-            //         var yt = (y +(scope.figuresHeight / 2) - (text.node.clientHeight / 2))+10;
-            //         text.attr({ y: yt});
-            //         return text;
-            //     };
-
-            //     var factoryJoinTo = function(){
-            //         var xt1 = x;
-            //         var yt1 = y + scope.figuresHeight;
-            //         var xt2 = x;
-            //         var yt2 = y + scope.figuresHeight + (scope.marginBetweenFigures - 3);
-            //         var arr = [xt1,yt1,xt2,yt2];
-            //         factoryPolyline(arr);
-            //     };
-            //     var factoryPolyline = function (arr) {
-            //         if(!last){
-            //             console.log(arr);
-            //             var polyline = scope.svg.polyline(arr);
-            //             polyline.attr({
-            //                 fill: "rgb(100,100,100)",
-            //                 stroke: "rgb(100,100,100)",
-            //                 strokeWidth: 1
-            //             });
-            //             // factotyArrow();
-            //             return polyline;
-            //         }
-            //     };
-
-            //     switch (obj.type) {
-            //         case 'activity':
-            //             factoryRect();
-            //             factoryJoinTo();
-            //             factoryText();
-            //             // factoryPolyline();
-            //             scope.offset.y += (scope.figuresHeight + scope.marginBetweenFigures);
-            //             break;
-            //         case 'if':
-            //             factotyRombo();
-            //             factoryJoinTo();
-            //             factoryText();
-            //             // scope.coordinates.y += 85;
-            //             scope.offset.y += (scope.figuresHeight + scope.marginBetweenFigures);
-            //             break;
-            //         case 'end':
-            //             // factoryCircle();
-            //             // var text = factoryTextEnd();
-            //             // scope.coordinates.y += 45;
-            //             break;
-            //         default:
-            //             break;
-            //         }
-            //     }
-
-            // scope.svg = Snap(element[0]);
-            // scope.figures               = ['activity','if','end'];
-            // scope.figuresWidth          = scope.config.width - scope.config.marginLeft - scope.config.marginRight;
-            // scope.figuresHeight          = scope.config.figuresHeight;
-            // scope.marginBetweenFigures  = scope.config.marginBetweenFigures;
-            // scope.offset = {
-            //     x: (scope.config.width / 2),
-            //     y: scope.config.marginTop
-            // };
-
-            // scope.init = function () {
-            //     var longitud = scope.source.length;
-
-            //     for (   i in scope.source) {
-            //         var last = scope.source.length == (Number(i) + 1) ? true : false;
-            //         scope.$factory(scope.source[i],(Number(i)+1), last);
-            //     }
-
-            //     ngModel.$setViewValue({
-            //         height: scope.offset.y
-            //     });
-                
-            //     ngModel.$render = function () {
-            //         console.log(ngModel);
-            //     };
-
-            // };
-            // scope.init();
-
-
-
+            
             scope.svg = Snap(element[0]);
             scope.width = 2000;
             scope.height = 6000;
@@ -213,6 +91,28 @@ Snap.plugin(function (Snap, Element, Paper) {
                         strokeWidth: 0
                     });
                     return path;
+                },
+                rombo : function (offset,w,h) {
+                    var p1 = {x:offset.x,           y : offset.y - (h / 2)};
+                    var p2 = {x:offset.x+(w / 2),   y : offset.y };
+                    var p3 = {x:offset.x,           y : offset.y + (h / 2)};
+                    var p4 = {x:offset.x - (w / 2), y : offset.y };
+
+                    var pathStr = "M" + p1.x + " " + p1.y + " L" + p2.x + " " + p2.y + " L" + p3.x + " " + p3.y + " L" + p4.x + " " + p4.y + " Z";
+                    var path = scope.svg.path(pathStr);
+                
+                    path.attr({
+                        fill: "rgb(240, 240, 240)",
+                        stroke: "#979797",
+                        strokeWidth: 1
+                    });
+                    return path;
+                },
+                circle : function (offset,r) {
+                    var x = offset.x;
+                    var y = offset.y;
+                    var circle = scope.svg.circle(x, y , r);
+                    return circle;
                 }
             };
 
@@ -293,6 +193,13 @@ Snap.plugin(function (Snap, Element, Paper) {
                         'text-anchor':"initial"
                     });
                     return text;
+                },
+                circleEnd : function(circle){
+                    circle.attr({
+                        fill: "#9063CD",
+                        strokeWidth: 0
+                    });
+                    return circle;
                 }
 
             };
@@ -407,10 +314,85 @@ Snap.plugin(function (Snap, Element, Paper) {
                     default: break;
                 }
             };
+
+            scope.buildSubCapacidad = function(subcapacidades,subcapacidad, offset){
+
+                var subCapacidadGroup = scope.svg.group();
+                switch (subcapacidad.type) {
+                    case 'activity':
+                            var activity = scope.$factory.rect(offset, 130, 80);
+                            activity = scope.$paint.rectCapacidades(activity);
+                            var text = scope.$factory.textbox(offset, 130,80,subcapacidad.text,12);
+                            subCapacidadGroup.append(activity).append(text);
+                        break;
+                    case 'if':
+                        console.log('scope.$factory.rombo(offset,130,80)');
+                        var rombo = scope.$factory.rombo(offset,130,80);
+                        var text = scope.$factory.textbox(offset, 130,80,subcapacidad.text,12);
+                            subCapacidadGroup.append(activity, text);
+                            subCapacidadGroup.append(rombo).append(text);
+                        break;
+                    case 'end':
+
+                        var circle = scope.$factory.circle(offset,15);
+                        circle = scope.$paint.circleEnd(circle);
+                        var textboxCircle = scope.$factory.textbox(offset,30,30,subcapacidad.text,18);
+                        textboxCircle = scope.$paint.fontColorWhite(textboxCircle);
+                        subCapacidadGroup.append(circle).append(textboxCircle);
+                        break;
+                    default:
+                        break;
+                    
+                }
+            return subCapacidadGroup;
+            };
+
+            scope.buildSubCapacidades = function(subcapacidades, offset){
+
+                var offsetSubcapacidad = JSON.parse(JSON.stringify(offset));
+                var capacidadGroup = scope.svg.group();
+                offsetSubcapacidad = { x : offset.x, y: (offset.y + 110)};
+                
+                var offsetBack = JSON.parse(JSON.stringify(offset));
+                offsetBack.y +=50;
+                var back        = scope.$factory.rect(offsetBack, 150, 2);
+                var backMask    = scope.$factory.rect(offsetBack, 150, 2);
+
+                back = scope.$paint.rectCapacidadesBack(back);
+                capacidadGroup.append(back);
+                capacidadGroup.attr({mask:backMask});
+
+
+                for(var i in subcapacidades){
+                    var g = scope.buildSubCapacidad(subcapacidades,subcapacidades[i],offsetSubcapacidad);
+                    subcapacidades.offsets = [];
+                    subcapacidades.offsets[1] = offsetSubcapacidad;
+                    capacidadGroup.append(g);
+                    offsetSubcapacidad.y +=100;
+                }
+                
+                var height = 120;
+                //back.attr({"height":height + "px"});
+                backMask.attr({"fill":"silver"});
+                back.attr({"height":height + "px"});
+                
+                if(subcapacidades.length > 1){
+                    height = (offsetSubcapacidad.y) - offsetBack.y - 50;
+                    back.attr({"height":height + "px"});
+                }
+                // backMask.animate({height: 0}, 10000);
+
+                var obj = { g:capacidadGroup, height:height, backMask : backMask};
+                return obj;
+            };
+
             scope.buildCapacidad = function(capacidad,i,j){
                 var capacidadWidth = 150;
                 var capacidadHeight = 100;
                 var rect,textbox,rectFooterOffset,rectFooter,textboxFooter,intersection,arrow;
+
+                var capacidadMainGroup = scope.svg.group();
+                var capacidadGroup = scope.svg.group();
 
                 if((Number(j)+1) < scope.source[i].capacidades.length){
                     capacidad = $vash.intersectionFill(capacidad, scope.source[i].capacidades[(Number(j)+1)]);
@@ -419,7 +401,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                     var arr = [xys[0].x,xys[0].y,xys[1].x,xys[1].y,xys[2].x,xys[2].y,xys[1].x,xys[1].y,xys[0].x,xys[0].y];
                     intersection = scope.$factory.polyline(arr); 
                     arrow = scope.$factory.arrow(xys[2],12);
-                    //console.log(capacidad);
+
+                    capacidadGroup.append(intersection).append(arrow);
                 }
 
                 rect = scope.$factory.rect(capacidad.offsets[1], capacidadWidth, capacidadHeight);
@@ -432,83 +415,31 @@ Snap.plugin(function (Snap, Element, Paper) {
                 textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,capacidadHeight,capacidad.aplicaciones[0].name,12);
                 textboxFooter = scope.$paint.fontColorWhite(textboxFooter);
 
-                console.log();
+                capacidadGroup.append(rect).append(textbox).append(rectFooter).append(textboxFooter);
+                capacidadMainGroup.append(capacidadGroup);
+                var obj = {};
 
                 if(capacidad.subcapacidades.length){
-                    scope.buildSubCapacidades( capacidad.subcapacidades, capacidad.offsets[1]);
-                }
-                
-            };
-            scope.buildSubCapacidad = function(subcapacidades,subcapacidad, offset){
-
-                var subCapacidadGroup = scope.svg.group();
-                switch (subcapacidad.type) {
-                    case 'activity':
-                            var activity = scope.$factory.rect(offset, 130, 80, 20);
-                            activity = scope.$paint.rectCapacidades(activity);
-                            var text = scope.$factory.textbox(offset, 130,80,subcapacidad.text,12);
-                            subCapacidadGroup.append(activity, text);
-                        // factoryRect();
-                        // factoryJoinTo();
-                        // factoryText();
-                        // factoryPolyline();
-                        //scope.offset.y += (scope.figuresHeight + scope.marginBetweenFigures);
-                        break;
-                    case 'if':
-                        // factotyRombo();
-                        // factoryJoinTo();
-                        // factoryText();
-                        // // scope.coordinates.y += 85;
-                        // scope.offset.y += (scope.figuresHeight + scope.marginBetweenFigures);
-                        break;
-                    case 'end':
-                        // factoryCircle();
-                        // var text = factoryTextEnd();
-                        // scope.coordinates.y += 45;
-                        break;
-                    default:
-                        break;
+                    obj = scope.buildSubCapacidades( capacidad.subcapacidades, capacidad.offsets[1]);
+                    capacidadMainGroup.append(obj.g);
                     
                 }
-            return subCapacidadGroup;
-            };
+                obj.rect = rect;
+                obj.gCapacidad = capacidadMainGroup;
 
-            scope.buildSubCapacidades = function(subcapacidades, offset){
-                console.log(offset);
-                var offsetSubcapacidad = JSON.parse(JSON.stringify(offset));
-                var capacidadGroup = scope.svg.group();
-                offsetSubcapacidad = { x : offset.x, y: (offset.y + 110)};
-                
-                var offsetBack = JSON.parse(JSON.stringify(offset));
-                offsetBack.y +=50;
-                var back = scope.$factory.rect(offsetBack, 150, 2);
-                back = scope.$paint.rectCapacidadesBack(back);
-                capacidadGroup.append(back);
-
-                console.log("subcapacidades.length");
-                console.log(subcapacidades.length);
-                for(var i in subcapacidades){
-                    var g = scope.buildSubCapacidad(subcapacidades,subcapacidades[i],offsetSubcapacidad);
-                    capacidadGroup.append(g);
-                    offsetSubcapacidad.y +=100;
-                }
-                if(subcapacidades.length > 1){
-                    var height = (offsetSubcapacidad.y) - offsetBack.y;
-                    back.attr({"height":height + "px"});
-                }
-                if(subcapacidades.length == 1){
-                    var height = 120;
-                    back.attr({"height":height + "px"});
-                }
-                
+                return obj;
             };
             scope.buildCapacidades = function(){
                 
-                scope.procesosGroup = scope.svg.group();
+                scope.procesosGroup         = scope.svg.group();
+                scope.objss = [];
+
                 for(i in scope.source){
                     var intersection;
                     var proceso     = scope.source[i];
-                    
+                    var procesoGroup         = scope.svg.group();
+                    var procesoTituloGroup      = scope.svg.group();
+                    var procesoCapacidadesGroup = scope.svg.group();
 
                     if((Number(i)+1) < scope.source.length){
                         proceso = $vash.intersectionFill(proceso, scope.source[Number(i)+1]);
@@ -517,7 +448,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         var arr = [xys[0].x,xys[0].y,xys[1].x,xys[1].y,xys[2].x,xys[2].y,xys[1].x,xys[1].y,xys[0].x,xys[0].y];
                         intersection = scope.$factory.polyline(arr);
                         arrow = scope.$factory.arrow(xys[2],12);
-                        //console.log(capacidad);
+                        procesoGroup.append(intersection).append(arrow)
                     }
 
                     
@@ -526,17 +457,72 @@ Snap.plugin(function (Snap, Element, Paper) {
                     var offsetHeader = { x: proceso.offsets[1].x, y:proceso.offsets[1].y - (proceso.height/2) + 45};
                     rectProcesoHeader = scope.$factory.rect(offsetHeader,proceso.width,90);
                     rectProcesoHeader = scope.$paint.rectProcesoHeader(rectProcesoHeader);
-                    var procesoGroup = scope.svg.group();
                     var offsetHeaderText = {x:offsetHeader.x - (proceso.width/2) + 45, y : offsetHeader.y};
                     var textbox = scope.$factory.textbox(offsetHeaderText, proceso.width - 50,proceso.height,proceso.name,14);
                     textbox = scope.$paint.textLeft(textbox);
 
+                    var offsetHeaderCircle = JSON.parse(JSON.stringify(offsetHeaderText));
+                    offsetHeaderCircle.x -=20;
+                    var circle = scope.$factory.circle(offsetHeaderCircle,15);
+                        circle = scope.$paint.circleEnd(circle);
+                    var textboxCircle = scope.$factory.textbox(offsetHeaderCircle,30,30,(Number(i)+1)+"",18);
+                    textboxCircle = scope.$paint.fontColorWhite(textboxCircle);
+
+                    procesoGroup.append(rectProceso);
+                    procesoTituloGroup.append(rectProcesoHeader).append(textbox).append(circle).append(textboxCircle);
+
+                    var objs = [];
                     for(j in scope.source[i].capacidades){
-                        scope.buildCapacidad(scope.source[i].capacidades[j],i,j);
+                        var obj = {};
+                        var capacidad = scope.source[i].capacidades[j];
+                         obj = scope.buildCapacidad(capacidad,i,j);
+                         procesoCapacidadesGroup.append(obj.gCapacidad);
+
+                     
+                        // Event
+                        if(capacidad.subcapacidades.length){
+                            obj.rect.data("flag",false);
+                            obj.rect.data("i",i);
+                            obj.rect.data("j",j);
+                            obj.rect.click(scope.capacidadClick);
+                        }
+
+                        objs[j] = obj;
                     }
-                    
+
+                    scope.objss[i] = objs;
+                    procesoGroup.append(procesoTituloGroup).append(procesoCapacidadesGroup);
+                    scope.procesosGroup.append(procesoGroup);
                 }
                 
+            };
+
+            scope.capacidadClick = function(){
+                var i = this.data("i");
+                var j = this.data("j");
+                var flag = this.data("flag");
+                var thisProcess = scope.procesosGroup.children()[i].children()[2];
+                var processLength = scope.procesosGroup.children().length;
+
+                console.log(scope.procesosGroup.children()[i].children()[2]);
+
+                if(flag){
+                    scope.objss[i][j].backMask.animate({height:0},300);
+                    thisProcess.animate({height:thisProcess.data("height")},300);
+                }else{
+                    scope.objss[i][j].backMask.animate({height:scope.objss[i][j].height},300);
+                    var baseHeight = thisProcess.node.height.baseVal.value;
+                    var heightTransform =  baseHeight + scope.objss[i][j].height;
+                    thisProcess.data("height",baseHeight);
+                    thisProcess.animate({height:heightTransform},300);
+                    
+                    for(var x  = Number(i) + 1; x < processLength; x++ ){
+                        console.log(x);
+                    }
+
+
+                }
+                this.data("flag",!flag);
             };
 
             scope.buildLayouts = function(){
