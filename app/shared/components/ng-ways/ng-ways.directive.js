@@ -329,19 +329,54 @@ Snap.plugin(function (Snap, Element, Paper) {
                 var capacidadGroup = scope.svg.group();
 
                 if ((Number(j) + 1) < scope.source[i].capacidades.length) {
-                    capacidad = $vash.intersectionFill(capacidad, scope.source[i].capacidades[(Number(j) + 1)]);
-                    var xys = JSON.parse(JSON.stringify(capacidad.intersection));
-                    xys[2].y = xys[2].y - (capacidadHeight / 2) - 15;
-                    var arr = [xys[0].x, xys[0].y, xys[1].x, xys[1].y, xys[2].x, xys[2].y, xys[1].x, xys[1].y, xys[0].x, xys[0].y];
+                    capacidad = $vash.intersectionFill(capacidad, scope.source[i].capacidades[(Number(j) + 1)], true);
+
+                    var intersections = [];
+                        intersections[0] = JSON.parse(JSON.stringify(capacidad.intersection[0]));
+                        intersections[1] = JSON.parse(JSON.stringify(capacidad.intersection[1]));
+                        intersections[2] = JSON.parse(JSON.stringify(capacidad.intersection[2]));
+
+                    //var xys = JSON.parse(JSON.stringify(capacidad.intersection));
+
+                    intersections[1][2].y = intersections[1][2].y - (capacidadHeight / 2) - 15;
+
+                    var arr =  [
+                            intersections[scope.config.layoutSelect][0].x, 
+                            intersections[scope.config.layoutSelect][0].y, 
+                            intersections[scope.config.layoutSelect][1].x, 
+                            intersections[scope.config.layoutSelect][1].y, 
+                            intersections[scope.config.layoutSelect][2].x, 
+                            intersections[scope.config.layoutSelect][2].y, 
+                            intersections[scope.config.layoutSelect][1].x, 
+                            intersections[scope.config.layoutSelect][1].y, 
+                            intersections[scope.config.layoutSelect][0].x, 
+                            intersections[scope.config.layoutSelect][0].y
+                        ];
+
+                    
+                    // var arr = [xys[0].x, xys[0].y, xys[1].x, xys[1].y, xys[2].x, xys[2].y, xys[1].x, xys[1].y, xys[0].x, xys[0].y];
                     intersection = scope.$factory.polyline(arr);
-                    arrow = scope.$factory.arrow(xys[2], 12);
+                        
+                    var baseArrow = 12;
+                        var offsetsArrow = [
+                            intersections[0][2],
+                            intersections[1][2],
+                            intersections[2][2]
+                        ];
+
+                    arrow = scope.$factory.arrow(offsetsArrow[scope.config.layoutSelect], baseArrow);
+
+                    // set intersections and offsets
+                    intersection.data('intersections',intersections);
+                    arrow.data('offsets',offsetsArrow).data('base',baseArrow);
 
                     capacidadGroup.append(intersection).append(arrow);
                 }
 
-                rect = scope.$factory.rect(capacidad.offsets[1], capacidadWidth, capacidadHeight);
+                rect = scope.$factory.rect(capacidad.offsets[scope.config.layoutSelect], capacidadWidth, capacidadHeight);
                 rect = scope.$paint.rectCapacidades(rect);
-                textbox = scope.$factory.textbox(capacidad.offsets[1], capacidadWidth, capacidadHeight, capacidad.name, 14);
+                textbox = scope.$factory.textbox(capacidad.offsets[scope.config.layoutSelect], capacidadWidth, capacidadHeight, capacidad.name, 14);
+
 
                 rectFooterOffset    = {x:capacidad.offsets[1].x, y : capacidad.offsets[1].y + ((capacidadHeight/2)-10)};
                 rectFooter          = scope.$factory.rect(rectFooterOffset, capacidadWidth, 20);
@@ -349,7 +384,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                 textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,capacidadHeight,capacidad.aplicaciones[0].name,12);
                 textboxFooter       = scope.$paint.fontColorWhite(textboxFooter);
 
-
+                // Setting data
+                rect.data(capacidad.offsets).data;
 
                 capacidadGroup.append(rect).append(textbox).append(rectFooter).append(textboxFooter);
                 capacidadMainGroup.append(capacidadGroup);
@@ -417,8 +453,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         
                         // set intersections and offsets
                         intersection.data('intersections',intersections);
-                        arrow.data('offsets',offsetsArrow);
-                        arrow.data('base',baseArrow);
+                        arrow.data('offsets',offsetsArrow).data('base',baseArrow);
 
                         procesoGroup.append(intersection).append(arrow);
                     }
@@ -440,7 +475,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     };
 
                     var textboxWidth = proceso.width[scope.config.layoutSelect] - 50;
-                    textbox = scope.$factory.textbox(offsetHeaderText, textboxWidth, proceso.height[scope.config.layoutSelect], proceso.name, 14);
+                    textbox = scope.$factory.textbox(offsetHeaderText, textboxWidth, 90, proceso.name, 14);
                     textbox = scope.$paint.textLeft(textbox);
 
                     var offsetHeaderCircle = JSON.parse(JSON.stringify(offsetHeaderText));
@@ -450,9 +485,13 @@ Snap.plugin(function (Snap, Element, Paper) {
                     textboxCircle = scope.$factory.textbox(offsetHeaderCircle, 30, 30, (Number(i) + 1) + "", 18);
                     textboxCircle = scope.$paint.fontColorWhite(textboxCircle);
 
-                    rectProceso.data('offsets',proceso.offsets).data('width',proceso.width[scope.config.layoutSelect]).data('height',proceso.height[scope.config.layoutSelect]);
-                    rectProcesoHeader.data('offsets',offsetHeader);
-                    textbox.data('offsets',offsetHeaderText).data('width',proceso.width);
+
+                    // Setting data
+                    rectProceso.data('offsets',proceso.offsets).data('width',proceso.width).data('height',proceso.height);
+                    rectProcesoHeader.data('offsets',offsetHeader).data('width',proceso.width).data('height',[90,90,90]);
+                    textbox.data('offsets',offsetHeaderText).data('width',proceso.width).data('height',[90,90,90]);
+                    circle.data('offsets',offsetHeaderCircle).data('radio',[15,15,15]);
+                    textboxCircle.data('offsets',offsetHeaderCircle).data('width',[30,30,30]).data('height',[30,30,30]);
 
                     procesoGroup.append(rectProceso);
                     procesoTituloGroup.append(rectProcesoHeader).append(textbox).append(circle).append(textboxCircle);
