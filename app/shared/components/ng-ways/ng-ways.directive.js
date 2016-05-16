@@ -109,6 +109,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         offsets[0].y += 100;
                         offsets[1].y += 140;
                         offsets[2].x += 300;
+
                     }
                     offsets[0].y = 0;
                     offsets[1].y += 170;
@@ -347,6 +348,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                 rectFooter          = scope.$paint.rectCapacidadesFooter(rectFooter);
                 textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,capacidadHeight,capacidad.aplicaciones[0].name,12);
                 textboxFooter       = scope.$paint.fontColorWhite(textboxFooter);
+
 
 
                 capacidadGroup.append(rect).append(textbox).append(rectFooter).append(textboxFooter);
