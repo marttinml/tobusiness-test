@@ -120,6 +120,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     proceso.offsets = JSON.parse(JSON.stringify(offsetsProcesos));
                     proceso = $vash.settingDimensionsToProcess(proceso,true);
                     proceso.offsets[0] = scope.config.layouts.initial[i].offset;
+                    proceso.offsets[0].y = 45 + (proceso.height[0]/2);
                 }
             };
             
