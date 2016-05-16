@@ -108,12 +108,12 @@ Snap.plugin(function (Snap, Element, Paper) {
 
                         capacidad.offsets = JSON.parse(JSON.stringify(offsets));
 
-                        offsets[0].y += 100;
+                        offsets[0].y += 150;
                         offsets[1].y += 140;
                         offsets[2].x += 300;
 
                     }
-                    offsets[0].y = 0;
+                    offsets[0].y = 200;
                     offsets[1].y += 170;
                     //offsetsProcesos[0].x += 200;
 
@@ -393,7 +393,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                 textbox = scope.$factory.textbox(capacidad.offsets[scope.config.layoutSelect], capacidadWidth, capacidadHeight, capacidad.name, 14);
 
 
-                rectFooterOffset    = {x:capacidad.offsets[1].x, y : capacidad.offsets[1].y + ((capacidadHeight/2)-10)};
+                rectFooterOffset    = {x:capacidad.offsets[scope.config.layoutSelect].x, y : capacidad.offsets[scope.config.layoutSelect].y + ((capacidadHeight/2)-10)};
                 rectFooter          = scope.$factory.rect(rectFooterOffset, capacidadWidth, 20);
                 rectFooter          = scope.$paint.rectCapacidadesFooter(rectFooter);
                 textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,20,capacidad.aplicaciones[0].name,12);
@@ -410,7 +410,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                 var obj = {};
 
                 if (capacidad.subcapacidades.length) {
-                    obj = scope.buildSubCapacidades(capacidad.subcapacidades, capacidad.offsets[1]);
+                    obj = scope.buildSubCapacidades(capacidad.subcapacidades, capacidad.offsets[scope.config.layoutSelect]);
                     capacidadMainGroup.append(obj.g);
 
                 }
@@ -479,11 +479,11 @@ Snap.plugin(function (Snap, Element, Paper) {
                     // proceso figures
                     var rectProceso, rectProcesoHeader, textbox, circle, textboxCircle; 
                     
-                    rectProceso = scope.$factory.rect(proceso.offsets[1], proceso.width[scope.config.layoutSelect], proceso.height[scope.config.layoutSelect]);
+                    rectProceso = scope.$factory.rect(proceso.offsets[scope.config.layoutSelect], proceso.width[scope.config.layoutSelect], proceso.height[scope.config.layoutSelect]);
                     rectProceso = scope.$paint.rectProceso(rectProceso);
                     var offsetHeader = {
-                        x: proceso.offsets[1].x,
-                        y: proceso.offsets[1].y - (proceso.height[scope.config.layoutSelect] / 2) + 45
+                        x: proceso.offsets[scope.config.layoutSelect].x,
+                        y: proceso.offsets[scope.config.layoutSelect].y - (proceso.height[scope.config.layoutSelect] / 2) + 45
                     };
                     rectProcesoHeader = scope.$factory.rect(offsetHeader, proceso.width[scope.config.layoutSelect], 90);
                     rectProcesoHeader = scope.$paint.rectProcesoHeader(rectProcesoHeader);
