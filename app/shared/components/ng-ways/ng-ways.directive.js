@@ -371,6 +371,7 @@ Snap.plugin(function (Snap, Element, Paper) {
 
                 scope.procesosGroup = scope.svg.group();
                 scope.objss = [];
+                scope.prccessArr = [];
 
                 for (i in scope.source) {
                     var intersection;
@@ -434,6 +435,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         objs[j] = obj;
                     }
 
+                    scope.prccessArr.push(procesoGroup);
                     scope.objss[i] = objs;
                     procesoGroup.append(procesoTituloGroup).append(procesoCapacidadesGroup);
                     scope.procesosGroup.append(procesoGroup);
@@ -458,6 +460,12 @@ Snap.plugin(function (Snap, Element, Paper) {
                     thisProcess.animate({
                         height: thisProcess.data("height")
                     }, 300);
+
+                    for (var x = Number(i) + 1; x < processLength; x++) {
+                        console.log(x);
+                        scope.prccessArr[x].animate({transform:"t0,0"},300);
+                    }
+
                 } else {
                     scope.objss[i][j].backMask.animate({
                         height: scope.objss[i][j].height
@@ -471,6 +479,7 @@ Snap.plugin(function (Snap, Element, Paper) {
 
                     for (var x = Number(i) + 1; x < processLength; x++) {
                         console.log(x);
+                        scope.prccessArr[x].animate({transform:"t0,"+scope.objss[i][j].height},300);
                     }
 
 
