@@ -247,8 +247,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                     activity = scope.$paint.rectCapacidades(activity);
                     text = scope.$factory.textbox(offset, 130, 80, subcapacidad.text, 12);
                     subCapacidadGroup.append(activity).append(text);
-                    activity.data('offset',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
-                    text.data('offset',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
+                    activity.data('offsets',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
+                    text.data('offsets',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
                     break;
                 case 'if':
                     var rombo, text;
@@ -256,8 +256,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                     text = scope.$factory.textbox(offset, 130, 80, subcapacidad.text, 12);
                     subCapacidadGroup.append(activity, text);
                     subCapacidadGroup.append(rombo).append(text);
-                    rombo.data('offset',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
-                    text.data('offset',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
+                    rombo.data('offsets',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
+                    text.data('offsets',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
                     break;
                 case 'end':
                     var circle, textboxCircle;
@@ -266,8 +266,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                     textboxCircle = scope.$factory.textbox(offset, 30, 30, subcapacidad.text, 18);
                     textboxCircle = scope.$paint.fontColorWhite(textboxCircle);
                     subCapacidadGroup.append(circle).append(textboxCircle);
-                    circle.data('offset',[offset,offset,offset]).data('radio',[15,15,15]);
-                    textboxCircle.data('offset',[offset,offset,offset]).data('width',[30,30,30]).data('height',[30,30,30]);
+                    circle.data('offsets',[offset,offset,offset]).data('radio',[15,15,15]);
+                    textboxCircle.data('offsets',[offset,offset,offset]).data('width',[30,30,30]).data('height',[30,30,30]);
                     break;
                 default:
                     break;
