@@ -10,7 +10,7 @@
             footer: $scope.footer
         };
         $scope.config = {};
-        $scope.config.layoutSelect = 1;
+        $scope.config.layoutSelect = 0;
         $scope.config.layouts = {
             horizontal : $rootScope.applications,
             vertical : $rootScope.areas

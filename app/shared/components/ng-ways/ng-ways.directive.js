@@ -55,7 +55,7 @@ Snap.plugin(function (Snap, Element, Paper) {
             scope.settingProcesos = function (procesos) {
                 var offsets = [{
                     x: 0,
-                    y: 0
+                    y: 200
                 }, {
                     x: 0,
                     y: 220
@@ -65,7 +65,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                 }];
                 var offsetsProcesos = [{
                     x: 0,
-                    y: 0
+                    y: 200
                 }, {
                     x: 0,
                     y: 0
@@ -97,6 +97,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                         offsets[0].x = scope.config.layouts.initial[i].offset.x;
                         offsets[0].y = offsets[0].y;
 
+                        console.log(offsets[0].x);
+
                         offsets[1].x = $vash.findOffsetInArray(scope.config.layouts.vertical, capacidad, 'areas').x;
                         offsets[1].y = offsets[1].y;
 
@@ -113,24 +115,26 @@ Snap.plugin(function (Snap, Element, Paper) {
                     }
                     offsets[0].y = 0;
                     offsets[1].y += 170;
+                    //offsetsProcesos[0].x += 200;
 
                     proceso.offsets = JSON.parse(JSON.stringify(offsetsProcesos));
                     proceso = $vash.settingDimensionsToProcess(proceso,true);
+                    proceso.offsets[0] = scope.config.layouts.initial[i].offset;
                 }
             };
             
             // Crea el Layout 1
             scope.buildLayoutInitial = function () {
                 var offset = {
-                    x: 0,
-                    y: 0
+                    x: 200,
+                    y: 200
                 };
                 var width = 200;
                 scope.config.layouts.initial = [];
                 scope.layoutHorizontalGroup = scope.svg.group();
                 for (i in scope.source) {
                     scope.config.layouts.initial[i] = {};
-                    scope.config.layouts.initial[i].offset = offset;
+                    scope.config.layouts.initial[i].offset = JSON.parse(JSON.stringify(offset));
                     offset.x += width;
                 }
             };
@@ -237,25 +241,32 @@ Snap.plugin(function (Snap, Element, Paper) {
                 var subCapacidadGroup = scope.svg.group();
                 switch (subcapacidad.type) {
                 case 'activity':
-                    var activity = scope.$factory.rect(offset, 130, 80);
+                    var activity,text;
+                    activity = scope.$factory.rect(offset, 130, 80);
                     activity = scope.$paint.rectCapacidades(activity);
-                    var text = scope.$factory.textbox(offset, 130, 80, subcapacidad.text, 12);
+                    text = scope.$factory.textbox(offset, 130, 80, subcapacidad.text, 12);
                     subCapacidadGroup.append(activity).append(text);
+                    activity.data('offset',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
+                    text.data('offset',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
                     break;
                 case 'if':
-                    //console.log('scope.$factory.rombo(offset,130,80)');
-                    var rombo = scope.$factory.rombo(offset, 130, 80);
-                    var text = scope.$factory.textbox(offset, 130, 80, subcapacidad.text, 12);
+                    var rombo, text;
+                    rombo = scope.$factory.rombo(offset, 130, 80);
+                    text = scope.$factory.textbox(offset, 130, 80, subcapacidad.text, 12);
                     subCapacidadGroup.append(activity, text);
                     subCapacidadGroup.append(rombo).append(text);
+                    rombo.data('offset',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
+                    text.data('offset',[offset,offset,offset]).data('width',[130,130,130]).data('height',[80,80,80]);
                     break;
                 case 'end':
-
-                    var circle = scope.$factory.circle(offset, 15);
+                    var circle, textboxCircle;
+                    circle = scope.$factory.circle(offset, 15);
                     circle = scope.$paint.circleEnd(circle);
-                    var textboxCircle = scope.$factory.textbox(offset, 30, 30, subcapacidad.text, 18);
+                    textboxCircle = scope.$factory.textbox(offset, 30, 30, subcapacidad.text, 18);
                     textboxCircle = scope.$paint.fontColorWhite(textboxCircle);
                     subCapacidadGroup.append(circle).append(textboxCircle);
+                    circle.data('offset',[offset,offset,offset]).data('radio',[15,15,15]);
+                    textboxCircle.data('offset',[offset,offset,offset]).data('width',[30,30,30]).data('height',[30,30,30]);
                     break;
                 default:
                     break;
@@ -309,6 +320,10 @@ Snap.plugin(function (Snap, Element, Paper) {
                         "height": height + "px"
                     });
                 }
+
+                // Setting Data
+                back.data('offsets',[offset,offset,offset]).data('width',[150,150,150]).data('height',[height,height,height]);
+
                 // backMask.animate({height: 0}, 10000);
 
                 var obj = {
@@ -381,11 +396,14 @@ Snap.plugin(function (Snap, Element, Paper) {
                 rectFooterOffset    = {x:capacidad.offsets[1].x, y : capacidad.offsets[1].y + ((capacidadHeight/2)-10)};
                 rectFooter          = scope.$factory.rect(rectFooterOffset, capacidadWidth, 20);
                 rectFooter          = scope.$paint.rectCapacidadesFooter(rectFooter);
-                textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,capacidadHeight,capacidad.aplicaciones[0].name,12);
+                textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,20,capacidad.aplicaciones[0].name,12);
                 textboxFooter       = scope.$paint.fontColorWhite(textboxFooter);
 
                 // Setting data
-                rect.data(capacidad.offsets).data;
+                rect.data('offsets',capacidad.offsets).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[capacidadHeight,capacidadHeight,capacidadHeight]);
+                textbox.data('offsets',capacidad.offsets).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[capacidadHeight,capacidadHeight,capacidadHeight]);
+                rectFooter.data('offsets',rectFooterOffset).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
+                textboxFooter.data('offsets',rectFooterOffset).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
 
                 capacidadGroup.append(rect).append(textbox).append(rectFooter).append(textboxFooter);
                 capacidadMainGroup.append(capacidadGroup);
@@ -460,7 +478,7 @@ Snap.plugin(function (Snap, Element, Paper) {
 
                     // proceso figures
                     var rectProceso, rectProcesoHeader, textbox, circle, textboxCircle; 
-                    console.log(proceso);
+                    
                     rectProceso = scope.$factory.rect(proceso.offsets[1], proceso.width[scope.config.layoutSelect], proceso.height[scope.config.layoutSelect]);
                     rectProceso = scope.$paint.rectProceso(rectProceso);
                     var offsetHeader = {
