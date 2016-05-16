@@ -115,7 +115,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     offsets[1].y += 170;
 
                     proceso.offsets = JSON.parse(JSON.stringify(offsetsProcesos));
-                    proceso = $vash.settingDimensionsToProcess(proceso);
+                    proceso = $vash.settingDimensionsToProcess(proceso,true);
                 }
             };
             
@@ -367,7 +367,7 @@ Snap.plugin(function (Snap, Element, Paper) {
             };
             
             // Construye las capacidades de cada proceso
-            scope.buildCapacidades = function () {
+            scope.buildProcesses = function () {
 
                 scope.procesosGroup = scope.svg.group();
                 scope.objss = [];
@@ -381,37 +381,78 @@ Snap.plugin(function (Snap, Element, Paper) {
                     var procesoCapacidadesGroup = scope.svg.group();
 
                     if ((Number(i) + 1) < scope.source.length) {
-                        proceso = $vash.intersectionFill(proceso, scope.source[Number(i) + 1]);
-                        var xys = JSON.parse(JSON.stringify(proceso.intersection));
-                        xys[2].y = xys[2].y - (scope.source[Number(i) + 1].height / 2) - 15;
-                        var arr = [xys[0].x, xys[0].y, xys[1].x, xys[1].y, xys[2].x, xys[2].y, xys[1].x, xys[1].y, xys[0].x, xys[0].y];
+                        proceso = $vash.intersectionFill(proceso, scope.source[Number(i) + 1],true);
+
+                        var intersections = [];
+                        intersections[0] = JSON.parse(JSON.stringify(proceso.intersection[0]));
+                        intersections[1] = JSON.parse(JSON.stringify(proceso.intersection[1]));
+                        intersections[2] = JSON.parse(JSON.stringify(proceso.intersection[2]));
+
+                        //setting last arrow 1
+                        intersections[1][2].y = intersections[1][2].y - (scope.source[Number(i) + 1].height[scope.config.layoutSelect] / 2) - 15;
+
+                        var arr =  [
+                            intersections[scope.config.layoutSelect][0].x, 
+                            intersections[scope.config.layoutSelect][0].y, 
+                            intersections[scope.config.layoutSelect][1].x, 
+                            intersections[scope.config.layoutSelect][1].y, 
+                            intersections[scope.config.layoutSelect][2].x, 
+                            intersections[scope.config.layoutSelect][2].y, 
+                            intersections[scope.config.layoutSelect][1].x, 
+                            intersections[scope.config.layoutSelect][1].y, 
+                            intersections[scope.config.layoutSelect][0].x, 
+                            intersections[scope.config.layoutSelect][0].y
+                        ];
+                        
                         intersection = scope.$factory.polyline(arr);
-                        arrow = scope.$factory.arrow(xys[2], 12);
-                        procesoGroup.append(intersection).append(arrow)
+                        
+                        var baseArrow = 12;
+                        var offsetsArrow = [
+                            intersections[0][2],
+                            intersections[1][2],
+                            intersections[2][2]
+                        ];
+
+                        arrow = scope.$factory.arrow(offsetsArrow[scope.config.layoutSelect], baseArrow);
+                        
+                        // set intersections and offsets
+                        intersection.data('intersections',intersections);
+                        arrow.data('offsets',offsetsArrow);
+                        arrow.data('base',baseArrow);
+
+                        procesoGroup.append(intersection).append(arrow);
                     }
 
-
-                    var rectProceso = scope.$factory.rect(proceso.offsets[1], proceso.width, proceso.height);
+                    // proceso figures
+                    var rectProceso, rectProcesoHeader, textbox, circle, textboxCircle; 
+                    console.log(proceso);
+                    rectProceso = scope.$factory.rect(proceso.offsets[1], proceso.width[scope.config.layoutSelect], proceso.height[scope.config.layoutSelect]);
                     rectProceso = scope.$paint.rectProceso(rectProceso);
                     var offsetHeader = {
                         x: proceso.offsets[1].x,
-                        y: proceso.offsets[1].y - (proceso.height / 2) + 45
+                        y: proceso.offsets[1].y - (proceso.height[scope.config.layoutSelect] / 2) + 45
                     };
-                    rectProcesoHeader = scope.$factory.rect(offsetHeader, proceso.width, 90);
+                    rectProcesoHeader = scope.$factory.rect(offsetHeader, proceso.width[scope.config.layoutSelect], 90);
                     rectProcesoHeader = scope.$paint.rectProcesoHeader(rectProcesoHeader);
                     var offsetHeaderText = {
-                        x: offsetHeader.x - (proceso.width / 2) + 45,
+                        x: offsetHeader.x - (proceso.width[scope.config.layoutSelect] / 2) + 45,
                         y: offsetHeader.y
                     };
-                    var textbox = scope.$factory.textbox(offsetHeaderText, proceso.width - 50, proceso.height, proceso.name, 14);
+
+                    var textboxWidth = proceso.width[scope.config.layoutSelect] - 50;
+                    textbox = scope.$factory.textbox(offsetHeaderText, textboxWidth, proceso.height[scope.config.layoutSelect], proceso.name, 14);
                     textbox = scope.$paint.textLeft(textbox);
 
                     var offsetHeaderCircle = JSON.parse(JSON.stringify(offsetHeaderText));
                     offsetHeaderCircle.x -= 20;
-                    var circle = scope.$factory.circle(offsetHeaderCircle, 15);
+                    circle = scope.$factory.circle(offsetHeaderCircle, 15);
                     circle = scope.$paint.circleEnd(circle);
-                    var textboxCircle = scope.$factory.textbox(offsetHeaderCircle, 30, 30, (Number(i) + 1) + "", 18);
+                    textboxCircle = scope.$factory.textbox(offsetHeaderCircle, 30, 30, (Number(i) + 1) + "", 18);
                     textboxCircle = scope.$paint.fontColorWhite(textboxCircle);
+
+                    rectProceso.data('offsets',proceso.offsets).data('width',proceso.width[scope.config.layoutSelect]).data('height',proceso.height[scope.config.layoutSelect]);
+                    rectProcesoHeader.data('offsets',offsetHeader);
+                    textbox.data('offsets',offsetHeaderText).data('width',proceso.width);
 
                     procesoGroup.append(rectProceso);
                     procesoTituloGroup.append(rectProcesoHeader).append(textbox).append(circle).append(textboxCircle);
@@ -496,7 +537,7 @@ Snap.plugin(function (Snap, Element, Paper) {
             
             // Construye los procesos
             scope.buildProcesos = function () {
-                scope.buildCapacidades();
+                scope.buildProcesses();
             };
             
             // Inicializa la pantalla
