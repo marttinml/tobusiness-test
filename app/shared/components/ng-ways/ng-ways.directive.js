@@ -394,18 +394,21 @@ Snap.plugin(function (Snap, Element, Paper) {
                 rect = scope.$paint.rectCapacidades(rect);
                 textbox = scope.$factory.textbox(capacidad.offsets[scope.config.layoutSelect], capacidadWidth, capacidadHeight, capacidad.name, 14);
 
+                rectFooterOffset = [];
+                rectFooterOffset[0]    = {x:capacidad.offsets[0].x, y : capacidad.offsets[0].y + ((capacidadHeight/2)-10)};
+                rectFooterOffset[1]    = {x:capacidad.offsets[1].x, y : capacidad.offsets[1].y + ((capacidadHeight/2)-10)};
+                rectFooterOffset[2]    = {x:capacidad.offsets[2].x, y : capacidad.offsets[2].y + ((capacidadHeight/2)-10)};
 
-                rectFooterOffset    = {x:capacidad.offsets[scope.config.layoutSelect].x, y : capacidad.offsets[scope.config.layoutSelect].y + ((capacidadHeight/2)-10)};
-                rectFooter          = scope.$factory.rect(rectFooterOffset, capacidadWidth, 20);
+                rectFooter          = scope.$factory.rect(rectFooterOffset[scope.config.layoutSelect], capacidadWidth, 20);
                 rectFooter          = scope.$paint.rectCapacidadesFooter(rectFooter);
-                textboxFooter       = scope.$factory.textbox(rectFooterOffset, capacidadWidth,20,capacidad.aplicaciones[0].name,12);
+                textboxFooter       = scope.$factory.textbox(rectFooterOffset[scope.config.layoutSelect], capacidadWidth,20,capacidad.aplicaciones[0].name,12);
                 textboxFooter       = scope.$paint.fontColorWhite(textboxFooter);
 
                 // Setting data
                 rect.data('offsets',capacidad.offsets).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[capacidadHeight,capacidadHeight,capacidadHeight]);
                 textbox.data('offsets',capacidad.offsets).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[capacidadHeight,capacidadHeight,capacidadHeight]);
-                rectFooter.data('offsets',[rectFooterOffset,rectFooterOffset,rectFooterOffset]).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
-                textboxFooter.data('offsets',[rectFooterOffset,rectFooterOffset,rectFooterOffset]).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
+                rectFooter.data('offsets',rectFooterOffset).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
+                textboxFooter.data('offsets',rectFooterOffset).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
 
                 capacidadGroup.append(rect).append(textbox).append(rectFooter).append(textboxFooter);
                 capacidadMainGroup.append(capacidadGroup);
