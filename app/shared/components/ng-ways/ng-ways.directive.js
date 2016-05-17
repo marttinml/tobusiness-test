@@ -404,8 +404,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                 // Setting data
                 rect.data('offsets',capacidad.offsets).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[capacidadHeight,capacidadHeight,capacidadHeight]);
                 textbox.data('offsets',capacidad.offsets).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[capacidadHeight,capacidadHeight,capacidadHeight]);
-                rectFooter.data('offsets',rectFooterOffset).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
-                textboxFooter.data('offsets',rectFooterOffset).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
+                rectFooter.data('offsets',[rectFooterOffset,rectFooterOffset,rectFooterOffset]).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
+                textboxFooter.data('offsets',[rectFooterOffset,rectFooterOffset,rectFooterOffset]).data('width',[capacidadWidth,capacidadWidth,capacidadWidth]).data('height',[20,20,20]);
 
                 capacidadGroup.append(rect).append(textbox).append(rectFooter).append(textboxFooter);
                 capacidadMainGroup.append(capacidadGroup);
