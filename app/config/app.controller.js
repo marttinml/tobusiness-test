@@ -105,7 +105,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Welcome Center",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -137,7 +137,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Coxistence (MRD)",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -199,7 +199,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "Amdocs CRM",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             },
                             {
@@ -278,7 +278,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Amdocs CRM",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             },
                             {
@@ -303,15 +303,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "Opus",
-                              "selected": false
-                            },
-                            {
-                              "name": "Amdocs Billing",
-                              "selected": false
-                            },
-                            {
-                              "name": "OMS",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -327,7 +319,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "AT&T API",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -367,7 +359,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "iCAS",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -383,7 +375,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Maximage",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -410,7 +402,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "iCAS",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -445,7 +437,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "AT&T Blacklist Management",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -472,7 +464,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "NPS",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -498,7 +490,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Amdocs SRM",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -529,7 +521,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "Amdocs SRM",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -560,7 +552,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "Amdocs MEC",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -586,7 +578,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "eDOC",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -613,7 +605,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "iCAS",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -629,7 +621,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "eDOC",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -645,7 +637,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Maximage",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -672,7 +664,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "OFA",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -693,7 +685,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "ASD",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -714,7 +706,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "Oracle GL",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -735,7 +727,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "Opus",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             },
                             {
@@ -755,7 +747,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Invoice Gateway",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -808,7 +800,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "Invoice Gateway",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -839,7 +831,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "CAPM",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -860,7 +852,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "CAPM",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -881,7 +873,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "CAPM",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -908,7 +900,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "Opus",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -929,7 +921,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "ASD",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -973,7 +965,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "iCAS",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -994,7 +986,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "CAPM",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -1016,7 +1008,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "TBD",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -1037,7 +1029,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "OMS",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -1058,7 +1050,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "INAR",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -1097,7 +1089,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Coxistence (MRD)",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ],
@@ -1112,7 +1104,7 @@
                           "kpis": [],
                           "aplicaciones": [
                             {
-                              "name": "Welcome Center Opus",
+                              "name": "WELCOME CENTER",
                               "selected": false
                             }
                           ]
