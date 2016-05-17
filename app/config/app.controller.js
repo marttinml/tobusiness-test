@@ -202,10 +202,6 @@
                               "name": "WELCOME CENTER",
                               "selected": false
                             },
-                            {
-                              "name": "Opus",
-                              "selected": false
-                            }
                           ],
                           "areas":{
                               "name": "SALES REQUEST",
@@ -281,10 +277,6 @@
                               "name": "WELCOME CENTER",
                               "selected": false
                             },
-                            {
-                              "name": "Opus",
-                              "selected": false
-                            }
                           ],
                           "areas":{
                               "name": "SALES REQUEST",
