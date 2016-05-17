@@ -38,10 +38,25 @@ Snap.plugin(function (Snap, Element, Paper) {
 (function () {
     var Directive = function ($vash, $paint, $shapes) {
         var Link = function (scope, element, attrs, ngModel) {
+            
+            scope.sizes = [
+                {
+                    width: 5000,
+                    height: 6000
+                },
+                {
+                    width: 2000,
+                    height: 6000
+                },
+                {
+                    width: 12000,
+                    height: 6000
+                }
+            ];
 
             scope.svg = Snap(element[0]);
-            scope.width = 2000;
-            scope.height = 6000;
+            scope.width = scope.sizes[scope.layout].width;
+            scope.height = scope.sizes[scope.layout].height;
             
             // Se configura el scope svg en $shapes
             $shapes.svg(scope.svg);
@@ -97,7 +112,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         offsets[0].x = scope.config.layouts.initial[i].offset.x;
                         offsets[0].y = offsets[0].y;
 
-                        console.log(offsets[0].x);
+//                        console.log(offsets[0].x);
 
                         offsets[1].x = $vash.findOffsetInArray(scope.config.layouts.vertical, capacidad, 'areas').x;
                         offsets[1].y = offsets[1].y;
@@ -358,16 +373,16 @@ Snap.plugin(function (Snap, Element, Paper) {
                     intersections[1][2].y = intersections[1][2].y - (capacidadHeight / 2) - 15;
 
                     var arr =  [
-                            intersections[scope.config.layoutSelect][0].x, 
-                            intersections[scope.config.layoutSelect][0].y, 
-                            intersections[scope.config.layoutSelect][1].x, 
-                            intersections[scope.config.layoutSelect][1].y, 
-                            intersections[scope.config.layoutSelect][2].x, 
-                            intersections[scope.config.layoutSelect][2].y, 
-                            intersections[scope.config.layoutSelect][1].x, 
-                            intersections[scope.config.layoutSelect][1].y, 
-                            intersections[scope.config.layoutSelect][0].x, 
-                            intersections[scope.config.layoutSelect][0].y
+                            intersections[scope.layout][0].x, 
+                            intersections[scope.layout][0].y, 
+                            intersections[scope.layout][1].x, 
+                            intersections[scope.layout][1].y, 
+                            intersections[scope.layout][2].x, 
+                            intersections[scope.layout][2].y, 
+                            intersections[scope.layout][1].x, 
+                            intersections[scope.layout][1].y, 
+                            intersections[scope.layout][0].x, 
+                            intersections[scope.layout][0].y
                         ];
 
                     
@@ -381,7 +396,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                             intersections[2][2]
                         ];
 
-                    arrow = scope.$factory.arrow(offsetsArrow[scope.config.layoutSelect], baseArrow);
+                    arrow = scope.$factory.arrow(offsetsArrow[scope.layout], baseArrow);
 
                     // set intersections and offsets
                     intersection.data('intersections',intersections);
@@ -390,18 +405,18 @@ Snap.plugin(function (Snap, Element, Paper) {
                     capacidadGroup.append(intersection).append(arrow);
                 }
 
-                rect = scope.$factory.rect(capacidad.offsets[scope.config.layoutSelect], capacidadWidth, capacidadHeight);
+                rect = scope.$factory.rect(capacidad.offsets[scope.layout], capacidadWidth, capacidadHeight);
                 rect = scope.$paint.rectCapacidades(rect);
-                textbox = scope.$factory.textbox(capacidad.offsets[scope.config.layoutSelect], capacidadWidth, capacidadHeight, capacidad.name, 14);
+                textbox = scope.$factory.textbox(capacidad.offsets[scope.layout], capacidadWidth, capacidadHeight, capacidad.name, 14);
 
                 rectFooterOffset = [];
                 rectFooterOffset[0]    = {x:capacidad.offsets[0].x, y : capacidad.offsets[0].y + ((capacidadHeight/2)-10)};
                 rectFooterOffset[1]    = {x:capacidad.offsets[1].x, y : capacidad.offsets[1].y + ((capacidadHeight/2)-10)};
                 rectFooterOffset[2]    = {x:capacidad.offsets[2].x, y : capacidad.offsets[2].y + ((capacidadHeight/2)-10)};
 
-                rectFooter          = scope.$factory.rect(rectFooterOffset[scope.config.layoutSelect], capacidadWidth, 20);
+                rectFooter          = scope.$factory.rect(rectFooterOffset[scope.layout], capacidadWidth, 20);
                 rectFooter          = scope.$paint.rectCapacidadesFooter(rectFooter);
-                textboxFooter       = scope.$factory.textbox(rectFooterOffset[scope.config.layoutSelect], capacidadWidth,20,capacidad.aplicaciones[0].name,12);
+                textboxFooter       = scope.$factory.textbox(rectFooterOffset[scope.layout], capacidadWidth,20,capacidad.aplicaciones[0].name,12);
                 textboxFooter       = scope.$paint.fontColorWhite(textboxFooter);
 
                 // Setting data
@@ -415,7 +430,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                 var obj = {};
 
                 if (capacidad.subcapacidades.length) {
-                    obj = scope.buildSubCapacidades(capacidad.subcapacidades, capacidad.offsets[scope.config.layoutSelect]);
+                    obj = scope.buildSubCapacidades(capacidad.subcapacidades, capacidad.offsets[scope.layout]);
                     capacidadMainGroup.append(obj.g);
 
                 }
@@ -448,19 +463,19 @@ Snap.plugin(function (Snap, Element, Paper) {
                         intersections[2] = JSON.parse(JSON.stringify(proceso.intersection[2]));
 
                         //setting last arrow 1
-                        intersections[1][2].y = intersections[1][2].y - (scope.source[Number(i) + 1].height[scope.config.layoutSelect] / 2) - 15;
+                        intersections[1][2].y = intersections[1][2].y - (scope.source[Number(i) + 1].height[scope.layout] / 2) - 15;
 
                         var arr =  [
-                            intersections[scope.config.layoutSelect][0].x, 
-                            intersections[scope.config.layoutSelect][0].y, 
-                            intersections[scope.config.layoutSelect][1].x, 
-                            intersections[scope.config.layoutSelect][1].y, 
-                            intersections[scope.config.layoutSelect][2].x, 
-                            intersections[scope.config.layoutSelect][2].y, 
-                            intersections[scope.config.layoutSelect][1].x, 
-                            intersections[scope.config.layoutSelect][1].y, 
-                            intersections[scope.config.layoutSelect][0].x, 
-                            intersections[scope.config.layoutSelect][0].y
+                            intersections[scope.layout][0].x, 
+                            intersections[scope.layout][0].y, 
+                            intersections[scope.layout][1].x, 
+                            intersections[scope.layout][1].y, 
+                            intersections[scope.layout][2].x, 
+                            intersections[scope.layout][2].y, 
+                            intersections[scope.layout][1].x, 
+                            intersections[scope.layout][1].y, 
+                            intersections[scope.layout][0].x, 
+                            intersections[scope.layout][0].y
                         ];
                         
                         intersection = scope.$factory.polyline(arr);
@@ -472,7 +487,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                             intersections[2][2]
                         ];
 
-                        arrow = scope.$factory.arrow(offsetsArrow[scope.config.layoutSelect], baseArrow);
+                        arrow = scope.$factory.arrow(offsetsArrow[scope.layout], baseArrow);
                         
                         // set intersections and offsets
                         intersection.data('intersections',intersections);
@@ -484,7 +499,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     // proceso figures
                     var rectProceso, rectProcesoHeader, textbox, circle, textboxCircle; 
                     
-                    rectProceso = scope.$factory.rect(proceso.offsets[scope.config.layoutSelect], proceso.width[scope.config.layoutSelect], proceso.height[scope.config.layoutSelect]);
+                    rectProceso = scope.$factory.rect(proceso.offsets[scope.layout], proceso.width[scope.layout], proceso.height[scope.layout]);
                     rectProceso = scope.$paint.rectProceso(rectProceso);
                     var offsetHeader = [];
                     offsetHeader[0] = {
@@ -500,7 +515,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         y: proceso.offsets[2].y - (proceso.height[2] / 2) + 45
                     };
 
-                    rectProcesoHeader = scope.$factory.rect(offsetHeader[scope.config.layoutSelect], proceso.width[scope.config.layoutSelect], 90);
+                    rectProcesoHeader = scope.$factory.rect(offsetHeader[scope.layout], proceso.width[scope.layout], 90);
                     rectProcesoHeader = scope.$paint.rectProcesoHeader(rectProcesoHeader);
 
 
@@ -518,8 +533,8 @@ Snap.plugin(function (Snap, Element, Paper) {
                         y: offsetHeader[2].y
                     };
 
-                    var textboxWidth = proceso.width[scope.config.layoutSelect] - 50;
-                    textbox = scope.$factory.textbox(offsetHeaderText[scope.config.layoutSelect], textboxWidth, 90, proceso.name, 14);
+                    var textboxWidth = proceso.width[scope.layout] - 50;
+                    textbox = scope.$factory.textbox(offsetHeaderText[scope.layout], textboxWidth, 90, proceso.name, 14);
                     textbox = scope.$paint.textLeft(textbox);
 
                     var offsetHeaderCircle = JSON.parse(JSON.stringify(offsetHeaderText));
@@ -527,9 +542,9 @@ Snap.plugin(function (Snap, Element, Paper) {
                     offsetHeaderCircle[1].x -= 20;
                     offsetHeaderCircle[2].x -= 20;
 
-                    circle = scope.$factory.circle(offsetHeaderCircle[scope.config.layoutSelect], 15);
+                    circle = scope.$factory.circle(offsetHeaderCircle[scope.layout], 15);
                     circle = scope.$paint.circleEnd(circle);
-                    textboxCircle = scope.$factory.textbox(offsetHeaderCircle[scope.config.layoutSelect], 30, 30, (Number(i) + 1) + "", 18);
+                    textboxCircle = scope.$factory.textbox(offsetHeaderCircle[scope.layout], 30, 30, (Number(i) + 1) + "", 18);
                     textboxCircle = scope.$paint.fontColorWhite(textboxCircle);
 
 
@@ -588,7 +603,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         height: thisProcess.data("height")
                     }, 300);
 
-                    if(scope.config.layoutSelect == 1){
+                    if(scope.layout == 1){
                         for (var x = Number(i) + 1; x < processLength; x++) {
                             console.log(x);
                             scope.prccessArr[x].animate({transform:"t0,0"},300);
@@ -606,7 +621,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                         height: heightTransform
                     }, 300);
 
-                    if(scope.config.layoutSelect == 1){
+                    if(scope.layout == 1){
                         for (var x = Number(i) + 1; x < processLength; x++) {
                             console.log(x);
                             scope.prccessArr[x].animate({transform:"t0,"+scope.objss[i][j].height},300);
@@ -633,7 +648,7 @@ Snap.plugin(function (Snap, Element, Paper) {
             // Inicializa la pantalla
             scope.init = function () {
                 scope.buildLayouts();
-                scope.config.changeLayoutSelect(scope.config.layoutSelect);
+                scope.config.changeLayoutSelect(scope.layout);
             };
             
             // Cambia el JSON que cambia el contenido del SVG
@@ -650,6 +665,14 @@ Snap.plugin(function (Snap, Element, Paper) {
                 }
             });
             
+            scope.$watch('layout', function (newValue) {
+                if(newValue){
+                    scope.svg.clear();
+                scope.reset();
+                }
+
+            });
+            
 
         };
         return {
@@ -659,6 +682,7 @@ Snap.plugin(function (Snap, Element, Paper) {
             scope: {
                 source: '=set',
                 config: '=config',
+                layout: '='
 
             }
         };

@@ -492,62 +492,97 @@
         };
 
 
-        self.setDataToProcess = function (procesos, index) {
+        self.setDataToProcess = function (procesos, index, indexto) {
 
             function animateBasedInData(obj, level) {
                 
                 var type = obj.type;
+                
+                
                 var possibleShape = {
                     polyline: function () {
                         obj.animate({
-                            transform: 't0,0'
+                            transform: 't0,0', 
                         }, 300);
-                        console.log(obj.data());
+                         
                     },
                     path: function () {
+                        var offsetToAnimate = {
+                            x: obj.data().offsets[indexto].x - obj.data().offsets[index].x,
+                            y: obj.data().offsets[indexto].y - obj.data().offsets[index].y
+                        };
                         obj.animate({
-                            transform: 't0,0'
+                            transform: 't'+offsetToAnimate.x +','+ offsetToAnimate.y,
                         }, 300);
                     },
                     rect: function () {
+                        var offsetToAnimate = {
+                            x: obj.data().offsets[indexto].x - obj.data().offsets[index].x,
+                            y: obj.data().offsets[indexto].y - obj.data().offsets[index].y
+                        };
+                        
                         obj.animate({
-                            transform: 't0,0',
-                            height: obj.data().height[index],
-                            width: obj.data().width[index]
+                            transform: 't'+(offsetToAnimate.x - (obj.data().width[indexto] / 2.5)) +','+ offsetToAnimate.y,
+                            height: obj.data().height[indexto],
+                            width: obj.data().width[indexto]
                         }, 300);
                     },
                     circle: function () {
+                        var offsetToAnimate = {
+                            x: obj.data().offsets[indexto].x - obj.data().offsets[index].x,
+                            y: obj.data().offsets[indexto].y - obj.data().offsets[index].y
+                        };
                         obj.animate({
-                            transform: 't0,0',
+                            transform: 't'+offsetToAnimate.x +','+ offsetToAnimate.y,
                             r: obj.data().radio[index]
                         }, 300);
                         
                     },
                     text: function () {
+                        var offsetToAnimate = {
+                            x: obj.data().offsets[indexto].x - obj.data().offsets[index].x,
+                            y: obj.data().offsets[indexto].y - obj.data().offsets[index].y
+                        };
                         obj.animate({
-                            transform: 't0,0'
+                            transform: 't'+offsetToAnimate.x +','+ offsetToAnimate.y,
                         }, 300);
                     }
                 };
+                
+                
+                
                 return possibleShape[type]();
-            }
+            } 
             
-            
-            var procesosLevel = procesos.children()[0].children();
+
             for (var i in procesos.children()) {
+
                 if (procesos.children()[i].type == 'g') {
+                    
+                    var procesosLevel = procesos.children()[i].children();
+
                     for (var a in procesosLevel) {
+
                         if (procesosLevel[a].type == 'g') {
+
                             for (var b in procesosLevel[a].children()) {
+
                                 if (procesosLevel[a].children()[b].type == 'g') {
+
                                     for (var c in procesosLevel[a].children()[b].children()) {
+
                                         if (procesosLevel[a].children()[b].children()[c].type == 'g') {
+
                                             for (var d in procesosLevel[a].children()[b].children()[c].children()) {
+
                                                 if (procesosLevel[a].children()[b].children()[c].children()[d].type == 'g') {
+
                                                     for (var e in procesosLevel[a].children()[b].children()[c].children()[d].children()) {
+
                                                         //console.log(procesosLevel[a].children()[b].children()[c].children()[d].children()[e]);
                                                         animateBasedInData(procesosLevel[a].children()[b].children()[c].children()[d].children()[e], e);
                                                     }
+
                                                 } else {
                                                     animateBasedInData(procesosLevel[a].children()[b].children()[c].children()[d], d);
                                                 }
@@ -568,6 +603,8 @@
                     animateBasedInData(procesos.children()[i], i);
                 }
             }
+            
+
 
         };
 
