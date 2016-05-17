@@ -490,7 +490,7 @@ Snap.plugin(function (Snap, Element, Paper) {
                     };
                     offsetHeader[1] = {
                         x: proceso.offsets[1].x,
-                        y: proceso.offsets[2].y - (proceso.height[1] / 2) + 45
+                        y: proceso.offsets[1].y - (proceso.height[1] / 2) + 45
                     };
                     offsetHeader[2] = {
                         x: proceso.offsets[2].x,
@@ -585,9 +585,11 @@ Snap.plugin(function (Snap, Element, Paper) {
                         height: thisProcess.data("height")
                     }, 300);
 
-                    for (var x = Number(i) + 1; x < processLength; x++) {
-                        console.log(x);
-                        scope.prccessArr[x].animate({transform:"t0,0"},300);
+                    if(scope.config.layoutSelect == 1){
+                        for (var x = Number(i) + 1; x < processLength; x++) {
+                            console.log(x);
+                            scope.prccessArr[x].animate({transform:"t0,0"},300);
+                        }
                     }
 
                 } else {
@@ -601,9 +603,11 @@ Snap.plugin(function (Snap, Element, Paper) {
                         height: heightTransform
                     }, 300);
 
-                    for (var x = Number(i) + 1; x < processLength; x++) {
-                        console.log(x);
-                        scope.prccessArr[x].animate({transform:"t0,"+scope.objss[i][j].height},300);
+                    if(scope.config.layoutSelect == 1){
+                        for (var x = Number(i) + 1; x < processLength; x++) {
+                            console.log(x);
+                            scope.prccessArr[x].animate({transform:"t0,"+scope.objss[i][j].height},300);
+                        }
                     }
 
 
