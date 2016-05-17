@@ -1,5 +1,6 @@
 <al-header source="header"></al-header>
 <al-footer source="quickMenu"></al-footer>
 <al-menu></al-menu>
-
-<svg ng-ways config="config" set="procesos" style="width: 2000px; height: 6000px;"></svg>
+<input type="text" placeholder="0" ng-model="valor">
+<button ng-click="cambiar(valor)">cambia</button>
+<svg ng-ways config="config" set="procesos" layout="layout" ng-style="getStyle(layout)"></svg>

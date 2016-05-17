@@ -223,7 +223,7 @@
         self.settingDimensionsToProcess = function (proceso, matrix) {
             if (matrix) {
                 if (proceso.capacidades !== undefined && proceso.capacidades.length) {
-                    
+
                     // Encuentra el primero y el último
                     var first, last;
                     for (var i in proceso.capacidades) {
@@ -234,7 +234,7 @@
                             last = proceso.capacidades[i].offsets[1];
                         }
                     }
-                    
+
                     var first0, last0;
                     for (var i0 in proceso.capacidades) {
                         if (i0 == 0) {
@@ -244,7 +244,7 @@
                             last0 = proceso.capacidades[i0].offsets[0];
                         }
                     }
-                    
+
                     var first2, last2;
                     for (var i2 in proceso.capacidades) {
                         if (i2 == 0) {
@@ -258,10 +258,10 @@
                     // Alto y ancho
                     var height = last.y - first.y + 220;
                     var width = last.x - first.x + 182;
-                    
+
                     var height0 = last0.y - first0.y + 220;
                     var width0 = last0.x - first0.x + 182;
-                    
+
                     var height2 = last2.y - first2.y + 220;
                     var width2 = last2.x - first2.x + 182;
 
@@ -271,30 +271,30 @@
                         first: first.y + 160,
                         last: last.y + 70
                     };
-                    
+
                     var extremosY0 = {
                         first: first0.y + 160,
                         last: last0.y + 70
                     };
-                    
+
                     var extremosY2 = {
                         first: first2.y + 160,
                         last: last2.y + 70
                     };
-                    
+
                     // Offset Y
                     var offsetY = first.y + ((extremosY.last - extremosY.first) / 2);
-                    
+
                     var offsetY0 = first0.y + ((extremosY0.last - extremosY0.first) / 2);
-                    
+
                     var offsetY2 = first2.y + ((extremosY2.last - extremosY2.first) / 2);
 
 
                     // Extremos X, Offset X
                     var offsetX, extremosX;
-                    
+
                     var offsetX0, extremosX0;
-                    
+
                     var offsetX2, extremosX2;
 
                     if (last.x != first.x) {
@@ -314,8 +314,8 @@
                     } else {
                         offsetX = last.x;
                     }
-                    
-                    
+
+
                     if (last0.x != first0.x) {
                         if (last0.x > first0.x) {
                             extremosX0 = {
@@ -333,9 +333,9 @@
                     } else {
                         offsetX0 = last0.x;
                     }
-                    
-                    
-                    
+
+
+
                     if (last2.x != first2.x) {
                         if (last2.x > first2.x) {
                             extremosX2 = {
@@ -359,25 +359,25 @@
                         x: offsetX,
                         y: offsetY
                     };
-                    
+
                     var mainOffset0 = {
                         x: offsetX0,
                         y: offsetY0
                     };
-                    
+
                     var mainOffset2 = {
                         x: offsetX2,
                         y: offsetY2
                     };
-                    
 
-                    
+
+
                     proceso.offsets[1] = mainOffset;
                     proceso.offsets[0] = mainOffset0;
                     proceso.offsets[2] = mainOffset2;
                     proceso.width = [width0, width, width2];
                     proceso.height = [height0, height, height2];
-                    
+
 
                     return proceso;
                 }
@@ -489,6 +489,123 @@
             }
 
             return arrayRetorno;
+        };
+
+
+        self.setDataToProcess = function (procesos, index, indexto) {
+
+            function animateBasedInData(obj, level) {
+                
+                var type = obj.type;
+                
+                
+                var possibleShape = {
+                    polyline: function () {
+                        obj.animate({
+                            transform: 't0,0', 
+                        }, 300);
+                         
+                    },
+                    path: function () {
+                        var offsetToAnimate = {
+                            x: obj.data().offsets[indexto].x - obj.data().offsets[index].x,
+                            y: obj.data().offsets[indexto].y - obj.data().offsets[index].y
+                        };
+                        obj.animate({
+                            transform: 't'+offsetToAnimate.x +','+ offsetToAnimate.y,
+                        }, 300);
+                    },
+                    rect: function () {
+                        var offsetToAnimate = {
+                            x: obj.data().offsets[indexto].x - obj.data().offsets[index].x,
+                            y: obj.data().offsets[indexto].y - obj.data().offsets[index].y
+                        };
+                        
+                        obj.animate({
+                            transform: 't'+(offsetToAnimate.x - (obj.data().width[indexto] / 2.5)) +','+ offsetToAnimate.y,
+                            height: obj.data().height[indexto],
+                            width: obj.data().width[indexto]
+                        }, 300);
+                    },
+                    circle: function () {
+                        var offsetToAnimate = {
+                            x: obj.data().offsets[indexto].x - obj.data().offsets[index].x,
+                            y: obj.data().offsets[indexto].y - obj.data().offsets[index].y
+                        };
+                        obj.animate({
+                            transform: 't'+offsetToAnimate.x +','+ offsetToAnimate.y,
+                            r: obj.data().radio[index]
+                        }, 300);
+                        
+                    },
+                    text: function () {
+                        var offsetToAnimate = {
+                            x: obj.data().offsets[indexto].x - obj.data().offsets[index].x,
+                            y: obj.data().offsets[indexto].y - obj.data().offsets[index].y
+                        };
+                        obj.animate({
+                            transform: 't'+offsetToAnimate.x +','+ offsetToAnimate.y,
+                        }, 300);
+                    }
+                };
+                
+                
+                
+                return possibleShape[type]();
+            } 
+            
+
+            for (var i in procesos.children()) {
+
+                if (procesos.children()[i].type == 'g') {
+                    
+                    var procesosLevel = procesos.children()[i].children();
+
+                    for (var a in procesosLevel) {
+
+                        if (procesosLevel[a].type == 'g') {
+
+                            for (var b in procesosLevel[a].children()) {
+
+                                if (procesosLevel[a].children()[b].type == 'g') {
+
+                                    for (var c in procesosLevel[a].children()[b].children()) {
+
+                                        if (procesosLevel[a].children()[b].children()[c].type == 'g') {
+
+                                            for (var d in procesosLevel[a].children()[b].children()[c].children()) {
+
+                                                if (procesosLevel[a].children()[b].children()[c].children()[d].type == 'g') {
+
+                                                    for (var e in procesosLevel[a].children()[b].children()[c].children()[d].children()) {
+
+                                                        //console.log(procesosLevel[a].children()[b].children()[c].children()[d].children()[e]);
+                                                        animateBasedInData(procesosLevel[a].children()[b].children()[c].children()[d].children()[e], e);
+                                                    }
+
+                                                } else {
+                                                    animateBasedInData(procesosLevel[a].children()[b].children()[c].children()[d], d);
+                                                }
+                                            }
+                                        } else {
+                                            animateBasedInData(procesosLevel[a].children()[b].children()[c], c);
+                                        }
+                                    }
+                                } else {
+                                    animateBasedInData(procesosLevel[a].children()[b], b);
+                                }
+                            }
+                        } else {
+                            animateBasedInData(procesosLevel[a], a);
+                        }
+                    }
+                } else {
+                    animateBasedInData(procesos.children()[i], i);
+                }
+            }
+            
+
+
         };
 
 
