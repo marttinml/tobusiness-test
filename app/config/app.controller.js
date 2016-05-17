@@ -199,7 +199,7 @@
                           ],
                           "aplicaciones": [
                             {
-                              "name": "WELCOME CENTER",
+                              "name": "COEXISTENSE",
                               "selected": false
                             },
                           ],
